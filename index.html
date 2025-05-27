@@ -35,6 +35,10 @@
             --button-mode-bg-hover-end: #343a40;
             --button-mode-shadow-color: rgba(0, 0, 0, 0.2);
             --button-mode-shadow-hover-color: rgba(0, 0, 0, 0.3);
+
+            --shape-color-1: rgba(102, 169, 210, 0.6);
+            --shape-color-2: rgba(231, 76, 60, 0.4);
+            --shape-color-3: rgba(106, 17, 203, 0.5);
         }
 
         body.dark-mode {
@@ -63,6 +67,10 @@
             --button-mode-bg-end: #6c757d;
             --button-mode-bg-hover-start: #ced4da;
             --button-mode-bg-hover-end: #868e96;
+
+            --shape-color-1: rgba(46, 204, 113, 0.4);
+            --shape-color-2: rgba(52, 152, 219, 0.5);
+            --shape-color-3: rgba(155, 89, 182, 0.6);
         }
 
         body {
@@ -79,12 +87,77 @@
             animation: backgroundShift 20s ease-in-out infinite alternate;
             color: var(--text-primary);
             transition: background-color 0.8s ease, color 0.8s ease;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         @keyframes backgroundShift {
             0% { background-position: 0% 0%; }
             100% { background-position: 100% 100%; }
+        }
+
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--shape-color-1);
+            top: 10%;
+            left: 5%;
+            animation: moveShape1 30s ease-in-out infinite alternate;
+        }
+
+        .shape-2 {
+            width: 600px;
+            height: 600px;
+            background: var(--shape-color-2);
+            bottom: 15%;
+            right: 10%;
+            animation: moveShape2 35s ease-in-out infinite alternate;
+        }
+
+        .shape-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--shape-color-3);
+            top: 40%;
+            left: 30%;
+            animation: moveShape3 25s ease-in-out infinite alternate;
+        }
+
+        @keyframes moveShape1 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(100px, 150px) scale(1.1); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        @keyframes moveShape2 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-120px, -80px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        @keyframes moveShape3 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(80px, -100px) scale(1.2); }
+            100% { transform: translate(0, 0) scale(1); }
         }
 
         .container {
@@ -103,6 +176,8 @@
             opacity: 0;
             transform: translateY(20px) scale(0.98);
             transition: transform 0.3s ease-out, background-color 0.8s ease, box-shadow 0.8s ease, border-color 0.8s ease;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes fadeInScale {
@@ -244,60 +319,6 @@
              background: linear-gradient(to right, #ced4da, #868e96);
         }
 
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-            margin-bottom: 50px;
-        }
-
-        .video-item {
-            background-color: var(--ad-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 15px var(--shadow-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.8s ease;
-            text-align: left;
-            border: 1px solid var(--border-color);
-        }
-
-        .video-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
-        }
-
-        .video-item img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            display: block;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .video-item h3 {
-            font-size: 1.3em;
-            color: var(--heading-color);
-            padding: 15px;
-            margin: 0;
-            transition: color 0.8s ease;
-        }
-
-        .video-item p {
-            font-size: 0.95em;
-            color: var(--text-secondary);
-            padding: 0 15px 15px;
-            margin: 0;
-            line-height: 1.5;
-            transition: color 0.8s ease;
-        }
-
-        .video-item a {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-        }
-
         .ad-container {
             display: flex;
             justify-content: center;
@@ -351,6 +372,8 @@
             font-size: 0.9em;
             background-color: rgba(0, 0, 0, 0.05);
             transition: background-color 0.8s ease, color 0.8s ease;
+            position: relative;
+            z-index: 1;
         }
 
         footer a {
@@ -409,13 +432,6 @@
                 padding: 10px 20px;
                 font-size: 0.85em;
             }
-            .video-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .video-item img {
-                height: 160px;
-            }
             .ad-container {
                 min-height: 120px;
                 margin: 30px auto;
@@ -454,9 +470,6 @@
                 padding: 8px 15px;
                 font-size: 0.8em;
             }
-            .video-item img {
-                height: 140px;
-            }
             .ad-container {
                 min-height: 100px;
                 margin: 20px auto;
@@ -465,6 +478,12 @@
     </style>
 </head>
 <body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
     <div class="container">
         <button id="darkModeToggle" class="button"><span>Mode Sombre/Clair</span></button>
 
@@ -477,31 +496,6 @@
             <a href="https://www.youtube.com/@TurboDrive43" target="_blank" id="mainCtaButton" class="button"><span>Voir la chaîne YouTube</span></a>
             <a href="https://discord.gg/DxJ6K3vBxD" target="_blank" id="discordButton" class="button"><span>Rejoindre le Discord</span></a>
         </div>
-
-        <h2>Nos Dernières Vidéos</h2>
-        <div class="video-grid">
-            <div class="video-item">
-                <a href="https://www.youtube.com/watch?v=s_a_REAL_VIDEO_ID_1" target="_blank">
-                    <img src="https://img.youtube.com/vi/s_a_REAL_VIDEO_ID_1/mqdefault.jpg" onerror="this.onerror=null;this.src='https://placehold.co/320x180/cccccc/333333?text=Video+1';" alt="Les 10 pires crashs en F1!">
-                    <h3>Les 10 pires crashs en F1!</h3>
-                    <p>Découvrez les accidents les plus spectaculaires et dangereux de l'histoire de la Formule 1.</p>
-                </a>
-            </div>
-            <div class="video-item">
-                <a href="https://www.youtube.com/watch?v=s_a_REAL_VIDEO_ID_2" target="_blank">
-                    <img src="https://img.youtube.com/vi/s_a_REAL_VIDEO_ID_2/mqdefault.jpg" onerror="this.onerror=null;this.src='https://placehold.co/320x180/cccccc/333333?text=Video+2';" alt="Il a réalisé le rêve de tous les fans de sports autos !">
-                    <h3>Il a réalisé le rêve de tous les fans de sports autos !</h3>
-                    <p>L'histoire incroyable d'un fan qui a vécu une expérience inoubliable sur les circuits.</p>
-                </a>
-            </div>
-            <div class="video-item">
-                <a href="https://www.youtube.com/watch?v=s_a_REAL_VIDEO_ID_3" target="_blank">
-                    <img src="https://img.youtube.com/vi/s_a_REAL_VIDEO_ID_3/mqdefault.jpg" onerror="this.onerror=null;this.src='https://placehold.co/320x180/cccccc/333333?text=Video+3';" alt="La différence de son entre les F1 de 2022 VS 2012 !">
-                    <h3>La différence de son entre les F1 de 2022 VS 2012 !</h3>
-                    <p>Une analyse sonore qui vous fera revivre l'évolution des moteurs de F1.</p>
-                </a>
-            </div>
-            </div>
 
         <div id="adUnit" class="ad-container">
             <ins class="adsbygoogle"
@@ -554,10 +548,8 @@
                 try {
                     if (window.adsbygoogle && window.adsbygoogle.push) {
                         (adsbygoogle = window.adsbygoogle || []).push({});
-                        console.log("AdSense push pour le bloc principal appelé.");
 
                         (adsbygoogle = window.adsbygoogle || []).push({});
-                        console.log("AdSense push pour le bloc latéral appelé.");
                     } else {
                         console.warn("adsbygoogle n'est pas disponible. Les publicités pourraient ne pas se charger.");
                     }
@@ -569,7 +561,6 @@
             darkModeToggle.addEventListener('click', () => {
                 const isDarkMode = body.classList.toggle('dark-mode');
                 localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-                console.log(`Mode ${isDarkMode ? 'sombre' : 'clair'} activé.`);
             });
         });
     </script>
