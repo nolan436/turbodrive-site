@@ -10,7 +10,603 @@
         /* Styles CSS pour une interface Windows 11 ultra-raffinée */
         :root {
             /* Variables pour le mode clair */
-            --bg-light-1: #e0f7fa;
+            --bg-light-1: #e0f7fa;<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurboDrive - Le Monde du Sport Automobile</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2416014288587554"
+         crossorigin="anonymous"></script>
+    <style>
+        /* Variables CSS pour un thème dynamique */
+        :root {
+            /* Mode Clair - Couleurs inspirées de la vitesse et de la modernité */
+            --bg-gradient-start-1: #e0f2f7;
+            --bg-gradient-mid-1: #b3e0f2;
+            --bg-gradient-end-1: #66a9d2;
+            --container-bg: rgba(255, 255, 255, 0.85);
+            --text-primary: #1a2c3a;
+            --text-secondary: #3b5a76;
+            --heading-color: #004080; /* Bleu profond */
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --button-main-bg-start: #e74c3c; /* Rouge pour l'énergie */
+            --button-main-bg-end: #2980b9; /* Bleu pour la stabilité */
+            --button-main-hover-start: #c0392b;
+            --button-main-hover-end: #1f618d;
+            --button-secondary-bg-start: #6a11cb; /* Violet pour le style */
+            --button-secondary-bg-end: #2575fc; /* Bleu électrique */
+            --button-secondary-hover-start: #560fad;
+            --button-secondary-hover-end: #1a5ac8;
+            --ad-bg: rgba(255, 255, 255, 0.6);
+            --ad-border: rgba(0, 0, 0, 0.1);
+            --glass-filter: blur(15px) saturate(150%);
+
+            /* Bouton mode */
+            --button-mode-bg-start: #6c757d;
+            --button-mode-bg-end: #495057;
+            --button-mode-bg-hover-start: #5a6268;
+            --button-mode-bg-hover-end: #343a40;
+            --button-mode-shadow-color: rgba(0, 0, 0, 0.2);
+            --button-mode-shadow-hover-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Mode Sombre - Couleurs inspirées du sport automobile nocturne et du carbone */
+        body.dark-mode {
+            --bg-gradient-start-1: #1a2b3c;
+            --bg-gradient-mid-1: #2c3e50;
+            --bg-gradient-end-1: #4a658a;
+            --container-bg: rgba(25, 35, 45, 0.85);
+            --text-primary: #ecf0f1;
+            --text-secondary: #bdc3c7;
+            --heading-color: #2ecc71; /* Vert néon pour le contraste */
+            --border-color: rgba(255, 255, 255, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --button-main-bg-start: #34495e;
+            --button-main-bg-end: #2c3e50;
+            --button-main-hover-start: #2c3e50;
+            --button-main-hover-end: #1a2b3c;
+            --button-secondary-bg-start: #4a658a;
+            --button-secondary-bg-end: #2f4f6b;
+            --button-secondary-hover-start: #3a5570;
+            --button-secondary-hover-end: #1f3b50;
+            --ad-bg: rgba(0, 0, 0, 0.4);
+            --ad-border: rgba(255, 255, 255, 0.05);
+            --glass-filter: blur(15px) saturate(150%) brightness(0.8);
+
+            /* Bouton mode en mode sombre */
+            --button-mode-bg-start: #adb5bd;
+            --button-mode-bg-end: #6c757d;
+            --button-mode-bg-hover-start: #ced4da;
+            --button-mode-bg-hover-end: #868e96;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Aligne le contenu en haut */
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-gradient-start-1), var(--bg-gradient-mid-1), var(--bg-gradient-end-1));
+            background-size: 200% 200%;
+            animation: backgroundShift 20s ease-in-out infinite alternate;
+            color: var(--text-primary);
+            transition: background-color 0.8s ease, color 0.8s ease;
+            overflow-x: hidden; /* Empêche le défilement horizontal */
+        }
+
+        @keyframes backgroundShift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .container {
+            background-color: var(--container-bg);
+            padding: 40px 60px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px var(--shadow-color), inset 0 0 0 1px var(--border-color);
+            text-align: center;
+            max-width: 900px;
+            width: 90%;
+            margin: 50px auto;
+            backdrop-filter: var(--glass-filter);
+            -webkit-backdrop-filter: var(--glass-filter);
+            border: 1px solid var(--border-color);
+            animation: fadeInScale 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+            transition: transform 0.3s ease-out, background-color 0.8s ease, box-shadow 0.8s ease, border-color 0.8s ease;
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .container:hover {
+            transform: translateY(-5px) scale(1.005);
+        }
+
+        h1, h2 {
+            color: var(--heading-color);
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: color 0.8s ease;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            margin-top: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            transition: color 0.8s ease;
+        }
+
+        .slogan {
+            font-size: 1.5em;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+
+        .button {
+            color: white;
+            padding: 18px 35px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            transition: width 0.4s ease-out, height 0.4s ease-out;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .button:hover::before {
+            width: 250px;
+            height: 250px;
+        }
+
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .button:active {
+            transform: translateY(0) scale(0.97);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Bouton principal (YouTube) */
+        #mainCtaButton {
+            background: linear-gradient(to right, var(--button-main-bg-start), var(--button-main-bg-end));
+        }
+        #mainCtaButton:hover {
+            background: linear-gradient(to right, var(--button-main-hover-start), var(--button-main-hover-end));
+        }
+
+        /* Bouton secondaire (Discord, etc.) */
+        #discordButton, #darkModeToggle {
+            background: linear-gradient(to right, var(--button-secondary-bg-start), var(--button-secondary-bg-end));
+            padding: 15px 30px;
+            font-size: 1.1em;
+        }
+        #discordButton:hover, #darkModeToggle:hover {
+            background: linear-gradient(to right, var(--button-secondary-hover-start), var(--button-secondary-hover-end));
+        }
+
+        #darkModeToggle {
+            margin-top: 20px;
+            align-self: flex-end;
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 1em;
+            padding: 12px 25px;
+            z-index: 10;
+        }
+        body.dark-mode #darkModeToggle {
+             background: linear-gradient(to right, #adb5bd, #6c757d);
+        }
+        body.dark-mode #darkModeToggle:hover {
+             background: linear-gradient(to right, #ced4da, #868e96);
+        }
+
+        /* Section Vidéos */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+
+        .video-item {
+            background-color: var(--ad-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.8s ease;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        .video-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .video-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .video-item h3 {
+            font-size: 1.3em;
+            color: var(--heading-color);
+            padding: 15px;
+            margin: 0;
+            transition: color 0.8s ease;
+        }
+
+        .video-item p {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            padding: 0 15px 15px;
+            margin: 0;
+            line-height: 1.5;
+            transition: color 0.8s ease;
+        }
+
+        .video-item a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* AdSense Container principal (en bas du contenu) */
+        .ad-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 160px;
+            margin: 50px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--ad-bg);
+            border: 1px solid var(--ad-border);
+            box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
+        }
+
+        .ad-container:hover {
+            box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 0 15px rgba(0, 120, 212, 0.1);
+        }
+
+        /* Nouveau style pour l'emplacement publicitaire latéral */
+        .side-ad-container {
+            position: fixed; /* Reste fixe lors du défilement */
+            right: 20px; /* 20px du bord droit */
+            top: 50%; /* Centre verticalement */
+            transform: translateY(-50%); /* Ajuste pour un centrage parfait */
+            width: 160px; /* Largeur typique pour une pub latérale (ex: 160x600) */
+            min-height: 600px; /* Hauteur typique */
+            background-color: var(--ad-bg);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            z-index: 9; /* Assure qu'il est au-dessus du contenu principal */
+            border: 1px solid var(--ad-border);
+            transition: all 0.3s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
+        }
+
+        /* Masquer la pub latérale sur les petits écrans */
+        @media (max-width: 1024px) { /* Ajusté pour masquer sur les tablettes et mobiles */
+            .side-ad-container {
+                display: none;
+            }
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            background-color: rgba(0, 0, 0, 0.05);
+            transition: background-color 0.8s ease, color 0.8s ease;
+        }
+
+        footer a {
+            color: var(--heading-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.8s ease;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            font-size: 1.2em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--heading-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                margin: 20px auto;
+            }
+            h1 {
+                font-size: 2.8em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            p {
+                font-size: 1em;
+            }
+            .slogan {
+                font-size: 1.3em;
+            }
+            .button {
+                padding: 14px 28px;
+                font-size: 1.1em;
+            }
+            #darkModeToggle {
+                top: 15px;
+                right: 15px;
+                padding: 10px 20px;
+                font-size: 0.85em;
+            }
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .video-item img {
+                height: 160px;
+            }
+            .ad-container {
+                min-height: 120px;
+                margin: 30px auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                margin: 10px auto;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            p {
+                font-size: 0.9em;
+            }
+            .slogan {
+                font-size: 1.1em;
+            }
+            .button-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .button {
+                width: 90%;
+                font-size: 1em;
+                padding: 12px 20px;
+            }
+            #darkModeToggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 0.8em;
+            }
+            .video-item img {
+                height: 140px;
+            }
+            .ad-container {
+                min-height: 100px;
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="darkModeToggle" class="button"><span>Mode Sombre/Clair</span></button>
+
+        <h1>TurboDrive</h1>
+        <p class="slogan">Votre dose quotidienne d'adrénaline et de savoir sur le sport automobile !</p>
+        
+        <p>Bienvenue sur le site officiel de TurboDrive43, la chaîne YouTube dédiée à l'univers fascinant de la Formule 1, du rallye, et de tous les sports automobiles. Plongez avec nous dans les coulisses, découvrez les analyses techniques, revivez les moments les plus intenses et apprenez des anecdotes incroyables !</p>
+        
+        <div class="button-group">
+            <a href="https://www.youtube.com/@TurboDrive43" target="_blank" id="mainCtaButton" class="button"><span>Voir la chaîne YouTube</span></a>
+            <a href="https://discord.gg/DxJ6K3vBxD" target="_blank" id="discordButton" class="button"><span>Rejoindre le Discord</span></a>
+        </div>
+
+        <h2>Nos Dernières Vidéos</h2>
+        <div class="video-grid">
+            <div class="video-item">
+                <a href="https://www.youtube.com/watch?v=VIDEO_ID_1" target="_blank">
+                    <img src="https://img.youtube.com/vi/VIDEO_ID_1/mqdefault.jpg" alt="Titre de la vidéo 1">
+                    <h3>Les 10 pires crashs en F1! (Titre de la vidéo)</h3>
+                    <p>Découvrez les accidents les plus spectaculaires et dangereux de l'histoire de la Formule 1.</p>
+                </a>
+            </div>
+            <div class="video-item">
+                <a href="https://www.youtube.com/watch?v=VIDEO_ID_2" target="_blank">
+                    <img src="https://img.youtube.com/vi/VIDEO_ID_2/mqdefault.jpg" alt="Titre de la vidéo 2">
+                    <h3>Il a réalisé le rêve de tous les fans de sports autos !</h3>
+                    <p>L'histoire incroyable d'un fan qui a vécu une expérience inoubliable sur les circuits.</p>
+                </a>
+            </div>
+            <div class="video-item">
+                <a href="https://www.youtube.com/watch?v=VIDEO_ID_3" target="_blank">
+                    <img src="https://img.youtube.com/vi/VIDEO_ID_3/mqdefault.jpg" alt="Titre de la vidéo 3">
+                    <h3>La différence de son entre les F1 de 2022 VS 2012 !</h3>
+                    <p>Une analyse sonore qui vous fera revivre l'évolution des moteurs de F1.</p>
+                </a>
+            </div>
+            </div>
+
+        <div id="adUnit" class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block; text-align:center;"
+                 data-ad-client="ca-pub-2416014288587554"
+                 data-ad-slot="VOTRE_SLOT_DE_PUB" data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+        
+        <p class="small-text">Suivez-nous pour ne rien manquer de l'actualité du sport automobile !</p>
+    </div>
+
+    <div class="side-ad-container">
+        <ins class="adsbygoogle"
+             style="display:block;"
+             data-ad-client="ca-pub-2416014288587554"
+             data-ad-slot="VOTRE_NOUVEAU_SLOT_DE_PUB_LATERAL"></ins>
+    </div>
+
+    <footer>
+        <p>© 2025 TurboDrive. Tous droits réservés. <a href="#">Politique de confidentialité</a></p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/turbodrive43_officiel" target="_blank">Instagram</a>
+            <a href="https://www.tiktok.com/@turbodrive43" target="_blank">TikTok</a>
+            <a href="https://twitter.com/turbodrive43" target="_blank">X (Twitter)</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+
+            // Fonction pour appliquer le thème
+            function applyTheme(isDarkMode) {
+                if (isDarkMode) {
+                    body.classList.add('dark-mode');
+                } else {
+                    body.classList.remove('dark-mode');
+                }
+            }
+
+            // Vérifier la préférence de l'utilisateur au chargement
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                applyTheme(true);
+            } else {
+                applyTheme(false); // Appliquer le mode clair par défaut ou si non défini
+            }
+            
+            // Appeler adsbygoogle.push({}) pour les deux blocs publicitaires
+            setTimeout(() => {
+                try {
+                    if (window.adsbygoogle && window.adsbygoogle.push) {
+                        // Pour le bloc principal
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        console.log("AdSense push pour le bloc principal appelé.");
+
+                        // Pour le bloc latéral
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        console.log("AdSense push pour le bloc latéral appelé.");
+                    } else {
+                        console.warn("adsbygoogle n'est pas disponible. Les publicités pourraient ne pas se charger.");
+                    }
+                } catch (error) {
+                    console.error("Erreur lors de l'appel à adsbygoogle.push:", error);
+                }
+            }, 100);
+
+            // Gérer le clic sur le bouton de mode sombre/clair
+            darkModeToggle.addEventListener('click', () => {
+                const isDarkMode = body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                console.log(`Mode ${isDarkMode ? 'sombre' : 'clair'} activé.`);
+            });
+        });
+    </script>
+</body>
+</html>
+
             --bg-light-2: #c1e4f3;
             --bg-light-3: #b3e5fc;
             --bg-light-base: #a7d9f7;
