@@ -1,94 +1,99 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Soutenir le développeur</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soutenez-nous !</title>
+    <style>
+        /* Styles CSS pour une interface fine et jolie */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5; /* Couleur de fond douce */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Prend toute la hauteur de la fenêtre */
+            margin: 0;
+            color: #333;
+        }
 
-  <!-- Script AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2416014288587554"
-    crossorigin="anonymous"></script>
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px; /* Bords légèrement arrondis */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Ombre légère pour la profondeur */
+            text-align: center;
+            max-width: 500px;
+            width: 90%; /* Responsive */
+        }
 
-  <style>
-    :root {
-      --blue: #0a84ff;
-      --red: #ff375f;
-      --bg: linear-gradient(135deg, #e3f2fd, #fce4ec);
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
+        h1 {
+            color: #4CAF50; /* Couleur verte pour le titre */
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
 
-    * {
-      box-sizing: border-box;
-    }
+        p {
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+        #supportButton {
+            background-color: #4CAF50; /* Bouton vert accrocheur */
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Animation au survol */
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
 
-    .container {
-      background: white;
-      padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-    }
+        #supportButton:hover {
+            background-color: #45a049; /* Assombrir au survol */
+            transform: translateY(-2px); /* Léger déplacement vers le haut */
+        }
 
-    h1 {
-      font-size: 1.5rem;
-      margin-bottom: 30px;
-      color: #111;
-    }
+        #supportButton:active {
+            transform: translateY(0); /* Retour à la position normale au clic */
+        }
 
-    .ad-container {
-      margin-bottom: 30px;
-    }
-
-    button {
-      padding: 14px 28px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(90deg, var(--blue), var(--red));
-      color: white;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-    }
-  </style>
+        .small-text {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
 </head>
 <body>
-
-  <div class="container">
-    <h1>Regardez une pub pour soutenir le développeur</h1>
-
-    <div class="ad-container">
-      <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-2416014288587554"
-        data-ad-slot="3236063034"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+    <div class="container">
+        <h1>Merci de votre soutien !</h1>
+        <p>Cliquez sur le bouton ci-dessous pour nous aider en visionnant une courte publicité. Cela ne vous coûte rien et nous aide énormément !</p>
+        <button id="supportButton">Cliquez ici pour nous aider</button>
+        <p class="small-text">Votre soutien est précieux.</p>
     </div>
 
-    <button onclick="location.reload()">Afficher une autre pub</button>
-  </div>
+    <script>
+        // JavaScript pour gérer le clic et afficher la pub
+        document.addEventListener('DOMContentLoaded', () => {
+            const supportButton = document.getElementById('supportButton');
 
+            supportButton.addEventListener('click', () => {
+                // Insérez ici votre script publicitaire fourni.
+                // Attention : Ce type de script charge souvent des publicités de manière intrusive (pop-ups, redirections).
+                // Les navigateurs et bloqueurs de pub peuvent les bloquer.
+                const adScript = document.createElement('script');
+                adScript.type = 'text/javascript';
+                adScript.src = '//pl26767777.profitableratecpm.com/4d/07/33/4d0733e0cf7966800e33aed0a54ca853.js';
+                document.body.appendChild(adScript);
+
+                alert("Merci d'avoir cliqué ! Une publicité va s'afficher. Votre soutien est très apprécié.");
+            });
+        });
+    </script>
+
+    <script type='text/javascript' src='//pl26767777.profitableratecpm.com/4d/07/33/4d0733e0cf7966800e33aed0a54ca853.js'></script>
 </body>
 </html>
