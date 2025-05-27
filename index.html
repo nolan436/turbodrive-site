@@ -4,65 +4,91 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Soutenir le développeur</title>
+
+  <!-- Script AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2416014288587554"
+    crossorigin="anonymous"></script>
+
   <style>
+    :root {
+      --blue: #0a84ff;
+      --red: #ff375f;
+      --bg: linear-gradient(135deg, #e3f2fd, #fce4ec);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      padding: 40px 20px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f7fa;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      justify-content: start;
       min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
       text-align: center;
-      color: #222;
+      max-width: 400px;
+      width: 90%;
     }
+
     h1 {
+      font-size: 1.5rem;
       margin-bottom: 30px;
-      font-weight: 600;
+      color: #111;
     }
+
     .ad-container {
-      width: 100%;
-      max-width: 360px;
       margin-bottom: 30px;
     }
+
     button {
-      padding: 12px 28px;
+      padding: 14px 28px;
       font-size: 1rem;
-      background: linear-gradient(90deg, #0a84ff, #ff375f);
       border: none;
       border-radius: 12px;
+      background: linear-gradient(90deg, var(--blue), var(--red));
       color: white;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     }
+
     button:hover {
       transform: scale(1.1);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     }
   </style>
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2416014288587554" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <h1>Regardez une pub pour soutenir le développeur</h1>
+  <div class="container">
+    <h1>Regardez une pub pour soutenir le développeur</h1>
 
-  <div class="ad-container">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-2416014288587554"
-         data-ad-slot="3236063034"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+    <div class="ad-container">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-2416014288587554"
+        data-ad-slot="3236063034"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <button onclick="location.reload()">Afficher une autre pub</button>
   </div>
-
-  <button onclick="location.reload()">Afficher une autre pub</button>
 
 </body>
 </html>
