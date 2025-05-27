@@ -6,7 +6,340 @@
     <title>Soutenez-nous !</title>
     <style>
         /* Styles CSS pour une interface fine et jolie */
+        <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soutenez-nous !</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2416014288587554"
+         crossorigin="anonymous"></script>
+    <style>
+        /* Styles CSS pour une interface Windows 11 ultra-raffinée */
+        :root {
+            --primary-blue: #0078d4;
+            --dark-blue: #004c8c;
+            --light-blue: #e0f7fa;
+            --medium-blue: #c1e4f3;
+            --text-dark: #2c3e50;
+            --text-medium: #34495e;
+            --text-light: #7f8c8d;
+            --white-alpha-strong: rgba(255, 255, 255, 0.75);
+            --white-alpha-medium: rgba(255, 255, 255, 0.5);
+            --white-alpha-light: rgba(255, 255, 255, 0.4);
+            --shadow-strong: rgba(0, 0, 0, 0.25);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --border-alpha: rgba(255, 255, 255, 0.5);
+        }
+
         body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            background: radial-gradient(circle at top left, var(--light-blue) 0%, var(--medium-blue) 50%, var(--primary-blue) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-dark);
+            overflow: hidden;
+            animation: backgroundShift 20s ease-in-out infinite alternate;
+            perspective: 1000px; /* Pour les transformations 3D */
+        }
+
+        @keyframes backgroundShift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .container {
+            background-color: var(--white-alpha-strong);
+            padding: 60px; /* Plus de padding */
+            border-radius: 24px; /* Bords encore plus arrondis */
+            box-shadow: 0 20px 50px var(--shadow-strong), /* Ombre principale plus forte */
+                        0 8px 20px var(--shadow-medium), /* Seconde ombre */
+                        inset 0 0 0 1px var(--white-alpha-light); /* Bordure intérieure subtile */
+            text-align: center;
+            max-width: 650px; /* Encore plus large */
+            width: 90%;
+            backdrop-filter: blur(20px) saturate(180%); /* Effet de flou et de saturation plus intense */
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border-alpha); /* Bordure plus définie */
+            animation: fadeInScale 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* Animation d'apparition avec échelle */
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.3s ease-out; /* Pour un potentiel hover 3D */
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Effet de survol 3D subtil sur le conteneur */
+        .container:hover {
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        h1 {
+            color: var(--dark-blue);
+            margin-bottom: 35px;
+            font-size: 3em; /* Encore plus grand */
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Ombre de texte plus prononcée */
+        }
+
+        p {
+            line-height: 1.9;
+            margin-bottom: 40px;
+            font-size: 1.25em; /* Plus grand */
+            color: var(--text-medium);
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Espace entre les boutons */
+            margin-bottom: 45px;
+            align-items: center;
+        }
+
+        #supportButton, #generateMessageButton {
+            background: linear-gradient(to right, var(--primary-blue), var(--dark-blue));
+            color: white;
+            padding: 22px 45px; /* Plus grand */
+            border: none;
+            border-radius: 14px; /* Bords très arrondis */
+            font-size: 1.5em; /* Plus grand */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 10px 25px rgba(0, 120, 212, 0.5), /* Ombre plus forte */
+                        0 0 0 0 rgba(0, 120, 212, 0.1); /* Pour l'effet de pulsation */
+            letter-spacing: 1px;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0); /* Force l'accélération matérielle */
+            width: fit-content; /* S'adapte au contenu */
+        }
+
+        #generateMessageButton {
+            background: linear-gradient(to right, #6a11cb, #2575fc); /* Nouveau dégradé pour le bouton Gemini */
+            box-shadow: 0 10px 25px rgba(106, 17, 203, 0.5);
+        }
+
+        #supportButton::before, #generateMessageButton::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2); /* Halo blanc plus visible */
+            border-radius: 50%;
+            transition: width 0.5s ease-out, height 0.5s ease-out;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            opacity: 0;
+        }
+
+        #supportButton:hover::before, #generateMessageButton:hover::before {
+            width: 300px;
+            height: 300px;
+            opacity: 1;
+        }
+
+        #supportButton:hover {
+            background: linear-gradient(to right, #005a9e, #003c6a);
+            transform: translateY(-7px); /* Effet de "lévitation" plus prononcé */
+            box-shadow: 0 15px 30px rgba(0, 120, 212, 0.6),
+                        0 0 0 10px rgba(0, 120, 212, 0.25); /* Effet de pulsation plus large */
+        }
+
+        #generateMessageButton:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px rgba(37, 117, 252, 0.6),
+                        0 0 0 10px rgba(37, 117, 252, 0.25);
+        }
+
+        #supportButton:active, #generateMessageButton:active {
+            transform: translateY(0) scale(0.98); /* Léger effet de pression */
+            box-shadow: 0 5px 15px rgba(0, 120, 212, 0.3);
+            transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+        }
+
+        #supportButton span, #generateMessageButton span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .small-text {
+            margin-top: 45px;
+            font-size: 1.05em;
+            color: var(--text-light);
+            font-weight: 300;
+        }
+
+        /* Style pour l'emplacement de la publicité AdSense */
+        .ad-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 160px; /* Encore plus grand pour la pub */
+            margin: 35px auto 0;
+            border-radius: 12px; /* Bords arrondis pour le conteneur de pub */
+            overflow: hidden;
+            background-color: var(--white-alpha-medium); /* Fond semi-transparent pour la pub */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.08); /* Ombre intérieure plus prononcée */
+            transition: all 0.3s ease;
+        }
+
+        .ad-container:hover {
+            box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 0 15px rgba(0, 120, 212, 0.1);
+        }
+
+        /* Styles pour le message généré par Gemini */
+        #geminiMessageContainer {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            font-size: 1.1em;
+            color: var(--text-dark);
+            min-height: 80px; /* Hauteur minimale */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            line-height: 1.6;
+            opacity: 0; /* Caché par défaut */
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #geminiMessageContainer.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(0, 120, 212, 0.2);
+            border-top: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Merci de votre soutien !</h1>
+        <p>Cliquez sur le bouton ci-dessous pour nous aider. Votre soutien est précieux et nous permet de continuer à améliorer nos services !</p>
+        
+        <div class="button-group">
+            <button id="supportButton"><span>Cliquez ici pour nous aider</span></button>
+            <button id="generateMessageButton"><span>Générer un message de remerciement ✨</span></button>
+        </div>
+
+        <div id="adUnit" class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block; text-align:center;"
+                 data-ad-client="ca-pub-2416014288587554"
+                 data-ad-slot="VOTRE_SLOT_DE_PUB" data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+
+        <div id="geminiMessageContainer">
+            Cliquez sur le bouton "Générer un message de remerciement ✨" pour voir un message personnalisé.
+        </div>
+
+        <p class="small-text">Votre soutien est précieux.</p>
+    </div>
+
+    <script>
+        // JavaScript pour gérer les clics sur les boutons et charger AdSense/Gemini
+        document.addEventListener('DOMContentLoaded', () => {
+            const supportButton = document.getElementById('supportButton');
+            const generateMessageButton = document.getElementById('generateMessageButton');
+            const geminiMessageContainer = document.getElementById('geminiMessageContainer');
+
+            // Appeler adsbygoogle.push({}) après que le DOM soit complètement chargé
+            // et avec un petit délai pour s'assurer que l'élément a une largeur calculée.
+            setTimeout(() => {
+                try {
+                    if (window.adsbygoogle && window.adsbygoogle.push) {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        console.log("AdSense push appelé.");
+                    } else {
+                        console.warn("adsbygoogle n'est pas disponible. La publicité pourrait ne pas se charger.");
+                    }
+                } catch (error) {
+                    console.error("Erreur lors de l'appel à adsbygoogle.push:", error);
+                }
+            }, 100); // Délai de 100ms
+
+            supportButton.addEventListener('click', () => {
+                console.log("Bouton de soutien cliqué. Merci !");
+            });
+
+            generateMessageButton.addEventListener('click', async () => {
+                geminiMessageContainer.classList.remove('show');
+                geminiMessageContainer.innerHTML = '<div class="loading-spinner"></div>'; // Affiche un spinner de chargement
+
+                let chatHistory = [];
+                const prompt = "Génère un message de remerciement chaleureux et inspirant pour quelqu'un qui a apporté son soutien à un site web. Le message doit être concis et sincère.";
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Laissez vide, Canvas fournira la clé API en runtime.
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        geminiMessageContainer.innerHTML = text; // Affiche le message généré
+                    } else {
+                        geminiMessageContainer.innerHTML = "Désolé, je n'ai pas pu générer de message pour le moment. Veuillez réessayer.";
+                        console.error("Structure de réponse inattendue de l'API Gemini:", result);
+                    }
+                } catch (error) {
+                    geminiMessageContainer.innerHTML = "Une erreur est survenue lors de la communication avec l'API Gemini.";
+                    console.error("Erreur lors de l'appel à l'API Gemini:", error);
+                } finally {
+                    geminiMessageContainer.classList.add('show'); // Rend le conteneur visible après le chargement
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f2f5; /* Couleur de fond douce */
             display: flex;
