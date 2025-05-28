@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurboDrive - Le Monde du Sport Automobile</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2416014288587554"
-         crossorigin="anonymous"></script>
     <style>
         :root {
             --bg-gradient-start-1: #e0f2f7;
@@ -25,8 +23,6 @@
             --button-secondary-bg-end: #2575fc;
             --button-secondary-hover-start: #560fad;
             --button-secondary-hover-end: #1a5ac8;
-            --ad-bg: rgba(255, 255, 255, 0.6);
-            --ad-border: rgba(0, 0, 0, 0.1);
             --glass-filter: blur(15px) saturate(150%);
 
             --button-mode-bg-start: #6c757d;
@@ -61,8 +57,6 @@
             --button-secondary-bg-end: #2f4f6b;
             --button-secondary-hover-start: #3a5570;
             --button-secondary-hover-end: #1f3b50;
-            --ad-bg: rgba(0, 0, 0, 0.4);
-            --ad-border: rgba(255, 255, 255, 0.05);
             --glass-filter: blur(15px) saturate(150%) brightness(0.8);
 
             --button-mode-bg-start: #adb5bd;
@@ -353,25 +347,6 @@
              background: linear-gradient(to right, #ced4da, #868e96);
         }
 
-        /* AdSense Container - now using the user's provided block */
-        .adsbygoogle-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 160px;
-            margin: 50px auto;
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: var(--ad-bg);
-            border: 1px solid var(--ad-border);
-            box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
-        }
-
-        .adsbygoogle-container:hover {
-            box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 0 15px rgba(0, 120, 212, 0.1);
-        }
-
         footer {
             margin-top: 40px;
             padding: 20px;
@@ -441,10 +416,6 @@
                 padding: 10px 20px;
                 font-size: 0.85em;
             }
-            .adsbygoogle-container {
-                min-height: 120px;
-                margin: 30px auto;
-            }
         }
 
         @media (max-width: 480px) {
@@ -479,10 +450,6 @@
                 padding: 8px 15px;
                 font-size: 0.8em;
             }
-            .adsbygoogle-container {
-                min-height: 100px;
-                margin: 20px auto;
-            }
         }
     </style>
 </head>
@@ -508,14 +475,6 @@
         <div class="button-group">
             <a href="https://www.youtube.com/@TurboDrive43" target="_blank" id="mainCtaButton" class="button"><span>Voir la chaîne YouTube</span></a>
             <a href="https://discord.gg/DxJ6K3vBxD" target="_blank" id="discordButton" class="button"><span>Rejoindre le Discord</span></a>
-        </div>
-
-        <div class="adsbygoogle-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-2416014288587554"
-                 data-ad-slot="2343452063"
-                 data-ad-format="auto"></ins>
         </div>
         
         <p class="small-text">Suivez-nous pour ne rien manquer de l'actualité du sport automobile !</p>
@@ -550,18 +509,8 @@
                 applyTheme(false);
             }
             
-            setTimeout(() => {
-                try {
-                    if (window.adsbygoogle && window.adsbygoogle.push) {
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    } else {
-                        console.warn("adsbygoogle n'est pas disponible. Les publicités pourraient ne pas se charger.");
-                    }
-                } catch (error) {
-                    console.error("Erreur lors de l'appel à adsbygoogle.push:", error);
-                }
-            }, 100);
-
+            // Les appels AdSense ont été retirés
+            
             darkModeToggle.addEventListener('click', () => {
                 const isDarkMode = body.classList.toggle('dark-mode');
                 localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
