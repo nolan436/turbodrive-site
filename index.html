@@ -25,8 +25,8 @@
             --button-secondary-bg-end: #2575fc;
             --button-secondary-hover-start: #560fad;
             --button-secondary-hover-end: #1a5ac8;
-            --ad-bg: rgba(255, 255, 255, 0.6);
-            --ad-border: rgba(0, 0, 0, 0.1);
+            --ad-bg: rgba(255, 255, 255, 0.6); /* Maintained for general ad styling if needed */
+            --ad-border: rgba(0, 0, 0, 0.1); /* Maintained for general ad styling if needed */
             --glass-filter: blur(15px) saturate(150%);
 
             --button-mode-bg-start: #6c757d;
@@ -39,6 +39,8 @@
             --shape-color-1: rgba(102, 169, 210, 0.6);
             --shape-color-2: rgba(231, 76, 60, 0.4);
             --shape-color-3: rgba(106, 17, 203, 0.5);
+            --shape-color-4: rgba(255, 215, 0, 0.4);
+            --shape-color-5: rgba(0, 200, 83, 0.5);
         }
 
         body.dark-mode {
@@ -71,6 +73,8 @@
             --shape-color-1: rgba(46, 204, 113, 0.4);
             --shape-color-2: rgba(52, 152, 219, 0.5);
             --shape-color-3: rgba(155, 89, 182, 0.6);
+            --shape-color-4: rgba(255, 165, 0, 0.5);
+            --shape-color-5: rgba(0, 150, 136, 0.4);
         }
 
         body {
@@ -142,22 +146,52 @@
             animation: moveShape3 25s ease-in-out infinite alternate;
         }
 
+        .shape-4 {
+            width: 350px;
+            height: 350px;
+            background: var(--shape-color-4);
+            top: 20%;
+            right: 25%;
+            animation: moveShape4 28s ease-in-out infinite alternate;
+        }
+
+        .shape-5 {
+            width: 450px;
+            height: 450px;
+            background: var(--shape-color-5);
+            bottom: 5%;
+            left: 20%;
+            animation: moveShape5 32s ease-in-out infinite alternate;
+        }
+
         @keyframes moveShape1 {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(100px, 150px) scale(1.1); }
-            100% { transform: translate(0, 0) scale(1); }
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(100px, 150px) scale(1.1) rotate(45deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(0deg); }
         }
 
         @keyframes moveShape2 {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-120px, -80px) scale(0.9); }
-            100% { transform: translate(0, 0) scale(1); }
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(-120px, -80px) scale(0.9) rotate(-30deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(0deg); }
         }
 
         @keyframes moveShape3 {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(80px, -100px) scale(1.2); }
-            100% { transform: translate(0, 0) scale(1); }
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(80px, -100px) scale(1.2) rotate(60deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+        }
+
+        @keyframes moveShape4 {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(-50px, 200px) scale(1.05) rotate(-20deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+        }
+
+        @keyframes moveShape5 {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(150px, -70px) scale(1.15) rotate(35deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(0deg); }
         }
 
         .container {
@@ -319,48 +353,23 @@
              background: linear-gradient(to right, #ced4da, #868e96);
         }
 
-        .ad-container {
+        /* AdSense Container - now using the user's provided block */
+        .adsbygoogle-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 160px;
-            margin: 50px auto;
+            min-height: 160px; /* Minimum height for AdSense block */
+            margin: 50px auto; /* Centered with vertical margin */
             border-radius: 12px;
             overflow: hidden;
-            background-color: var(--ad-bg);
-            border: 1px solid var(--ad-border);
+            background-color: var(--ad-bg); /* Use ad background variable */
+            border: 1px solid var(--ad-border); /* Use ad border variable */
             box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
         }
 
-        .ad-container:hover {
+        .adsbygoogle-container:hover {
             box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 0 15px rgba(0, 120, 212, 0.1);
-        }
-
-        .side-ad-container {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 160px;
-            min-height: 600px;
-            background-color: var(--ad-bg);
-            border-radius: 12px;
-            box-shadow: 0 5px 15px var(--shadow-color);
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            z-index: 9;
-            border: 1px solid var(--ad-border);
-            transition: all 0.3s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
-        }
-
-        @media (max-width: 1024px) {
-            .side-ad-container {
-                display: none;
-            }
         }
 
         footer {
@@ -432,7 +441,7 @@
                 padding: 10px 20px;
                 font-size: 0.85em;
             }
-            .ad-container {
+            .adsbygoogle-container {
                 min-height: 120px;
                 margin: 30px auto;
             }
@@ -470,7 +479,7 @@
                 padding: 8px 15px;
                 font-size: 0.8em;
             }
-            .ad-container {
+            .adsbygoogle-container {
                 min-height: 100px;
                 margin: 20px auto;
             }
@@ -482,6 +491,8 @@
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
     </div>
 
     <div class="container">
@@ -497,22 +508,16 @@
             <a href="https://discord.gg/DxJ6K3vBxD" target="_blank" id="discordButton" class="button"><span>Rejoindre le Discord</span></a>
         </div>
 
-        <div id="adUnit" class="ad-container">
+        <div class="adsbygoogle-container">
             <ins class="adsbygoogle"
-                 style="display:block; text-align:center;"
+                 style="display:block"
                  data-ad-client="ca-pub-2416014288587554"
-                 data-ad-slot="VOTRE_SLOT_DE_PUB" data-ad-format="auto"
+                 data-ad-slot="2343452063"
+                 data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
         </div>
         
         <p class="small-text">Suivez-nous pour ne rien manquer de l'actualité du sport automobile !</p>
-    </div>
-
-    <div class="side-ad-container">
-        <ins class="adsbygoogle"
-             style="display:block;"
-             data-ad-client="ca-pub-2416014288587554"
-             data-ad-slot="VOTRE_NOUVEAU_SLOT_DE_PUB_LATERAL"></ins>
     </div>
 
     <footer>
@@ -547,8 +552,6 @@
             setTimeout(() => {
                 try {
                     if (window.adsbygoogle && window.adsbygoogle.push) {
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     } else {
                         console.warn("adsbygoogle n'est pas disponible. Les publicités pourraient ne pas se charger.");
