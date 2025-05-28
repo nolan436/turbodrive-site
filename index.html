@@ -87,7 +87,6 @@
             animation: backgroundShift 20s ease-in-out infinite alternate;
             color: var(--text-primary);
             transition: background-color 0.8s ease, color 0.8s ease;
-            overflow: hidden;
         }
 
         @keyframes backgroundShift {
@@ -349,7 +348,6 @@
              background: linear-gradient(to right, #ced4da, #868e96);
         }
 
-        /* AdSense Container - now using the user's provided block */
         .adsbygoogle-container {
             display: flex;
             justify-content: center;
@@ -358,8 +356,8 @@
             margin: 50px auto;
             border-radius: 12px;
             overflow: hidden;
-            background-color: rgba(255, 255, 255, 0.6); /* Using a direct rgba for clarity */
-            border: 1px solid rgba(0, 0, 0, 0.1); /* Using a direct rgba for clarity */
+            background-color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
         }
@@ -369,9 +367,62 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-
         .adsbygoogle-container:hover {
             box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 0 15px rgba(0, 120, 212, 0.1);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+
+        .video-item {
+            background-color: var(--container-bg); /* Using container background for video items */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.8s ease;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        .video-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .video-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .video-item h3 {
+            font-size: 1.3em;
+            color: var(--heading-color);
+            padding: 15px;
+            margin: 0;
+            transition: color 0.8s ease;
+        }
+
+        .video-item p {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            padding: 0 15px 15px;
+            margin: 0;
+            line-height: 1.5;
+            transition: color 0.8s ease;
+        }
+
+        .video-item a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
         }
 
         footer {
@@ -447,6 +498,13 @@
                 min-height: 120px;
                 margin: 30px auto;
             }
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .video-item img {
+                height: 160px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -485,6 +543,9 @@
                 min-height: 100px;
                 margin: 20px auto;
             }
+            .video-item img {
+                height: 140px;
+            }
         }
     </style>
 </head>
@@ -511,6 +572,35 @@
             <a href="https://www.youtube.com/@TurboDrive43" target="_blank" id="mainCtaButton" class="button"><span>Voir la chaîne YouTube</span></a>
             <a href="https://discord.gg/DxJ6K3vBxD" target="_blank" id="discordButton" class="button"><span>Rejoindre le Discord</span></a>
         </div>
+
+        <h2>Nos Dernières Vidéos</h2>
+        <div class="video-grid">
+            <div class="video-item">
+                <a href="https://www.youtube.com/watch?v=VOTRE_VIDEO_ID_1_ICI" target="_blank">
+                    <img src="https://placehold.co/320x180/cccccc/333333?text=Video+1" onerror="this.onerror=null;this.src='https://placehold.co/320x180/cccccc/333333?text=Video+1';" alt="Les 10 pires crashs en F1!">
+                    <h3>Les 10 pires crashs en F1!</h3>
+                    <p>Découvrez les accidents les plus spectaculaires et dangereux de l'histoire de la Formule 1.</p>
+                </a>
+            </div>
+            <div class="video-item">
+                <a href="http://www.youtube.com/watch?v=3-UWjG7LIX4" target="_blank">
+                    <img src="https://placehold.co/320x180/cccccc/333333?text=Video+2" onerror="this.onerror=null;this.src='https://placehold.co/320x180/cccccc/333333?text=Video+2';" alt="Il a réalisé le rêve de tous les fans de sports autos !">
+                    <h3>Il a réalisé le rêve de tous les fans de sports autos !</h3>
+                    <p>L'histoire incroyable d'un fan qui a vécu une expérience inoubliable sur les circuits.</p>
+                </a>
+            </div>
+            <div class="video-item">
+                <a href="http://www.youtube.com/watch?v=e6eOeBlSx8w" target="_blank">
+                    <img src="https://placehold.co/320x180/cccccc/333333?text=Video+3" onerror="this.onerror=null;this.src='https://placehold.co/320x180/cccccc/333333?text=Video+3';" alt="La différence de son entre les F1 de 2022 VS 2012 !">
+                    <h3>La différence de son entre les F1 de 2022 VS 2012 !</h3>
+                    <p>Une analyse sonore qui vous fera revivre l'évolution des moteurs de F1.</p>
+                </a>
+            </div>
+        </div>
+
+        <h2>À Propos de TurboDrive</h2>
+        <p>TurboDrive est né d'une passion dévorante pour le sport automobile sous toutes ses formes. Que ce soit la vitesse fulgurante de la Formule 1, la précision du rallye, ou les faits surprenants qui entourent ce monde, notre objectif est de partager cette passion avec vous à travers des vidéos captivantes et informatives.</p>
+        <p>Nous nous efforçons de vous apporter du contenu de qualité, des analyses approfondies et des récits qui vous plongeront au cœur de l'action. Rejoignez notre communauté pour discuter, apprendre et vivre le sport automobile comme jamais auparavant !</p>
 
         <div class="adsbygoogle-container">
             <ins class="adsbygoogle"
