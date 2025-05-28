@@ -6,6 +6,7 @@
     <title>TurboDrive - Le Monde du Sport Automobile</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2416014288587554"
          crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-2416014288587554">
     <style>
         :root {
             --bg-gradient-start-1: #e0f2f7;
@@ -371,34 +372,6 @@
             box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.15), 0 0 15px rgba(0, 120, 212, 0.1);
         }
 
-        .youtube-playlist-section {
-            margin-top: 40px;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-
-        .youtube-playlist-embed {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 8px 15px var(--shadow-color);
-            margin-top: 25px;
-            background-color: #000;
-        }
-
-        .youtube-playlist-embed iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-            border-radius: 12px;
-        }
-
         footer {
             margin-top: 40px;
             padding: 20px;
@@ -537,19 +510,11 @@
             <a href="https://discord.gg/DxJ6K3vBxD" target="_blank" id="discordButton" class="button"><span>Rejoindre le Discord</span></a>
         </div>
 
-        <div class="youtube-playlist-section">
-            <h2>Nos Vidéos Longues</h2>
-            <div class="youtube-playlist-embed">
-                <iframe src="www.youtube.com/embed/PLjHIyX4XCnEdqHoxffkNwh2GDxXyvixQS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-        </div>
-
         <div class="adsbygoogle-container">
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-2416014288587554"
-                 data-ad-slot="2343452063"
-                 data-ad-format="auto"
+                 data-ad-slot="9969293667" data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
         </div>
         
@@ -557,11 +522,11 @@
     </div>
 
     <footer>
-        <p>© 2025 TurboDrive. Tous droits réservés.</p>
+        <p>© 2025 TurboDrive. Tous droits réservés. <a href="#">Politique de confidentialité</a></p>
         <div class="social-links">
-            <a href="instagram.com" target="_blank">Instagram(bientot dispo!)</a>
+            <a href="https://www.instagram.com/turbodrive43_officiel" target="_blank">Instagram (pas encore dispo)</a>
             <a href="https://www.tiktok.com/@turbo_drive43" target="_blank">TikTok</a>
-            <a href="https://twitter.com/" target="_blank">X (bientot dispo!)</a>
+            <a href="https://twitter.com/" target="_blank">X (pas encore disponible)</a>
         </div>
     </footer>
 
@@ -585,6 +550,7 @@
                 applyTheme(false);
             }
             
+            // Initialise AdSense après un court délai pour s'assurer que le script est chargé
             setTimeout(() => {
                 try {
                     if (window.adsbygoogle && window.adsbygoogle.push) {
