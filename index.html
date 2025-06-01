@@ -9,67 +9,47 @@
     <meta name="google-adsense-account" content="ca-pub-2416014288587554">
     <style>
         :root {
-            --bg-gradient-start-1: #e0f7fa;
-            --bg-gradient-mid-1: #cceef7;
-            --bg-gradient-end-1: #99d9ea;
-            --container-bg: rgba(255, 255, 255, 0.7);
+            --bg-gradient-start-1: #343a40;
+            --bg-gradient-mid-1: #212529;
+            --bg-gradient-end-1: #1a1e22;
+
+            --container-bg: rgba(255, 255, 255, 0.95);
+
             --text-primary: #2c3e50;
             --text-secondary: #5a748c;
             --heading-color: #0078d4;
-            --border-color: rgba(0, 0, 0, 0.08);
-            --shadow-color: rgba(0, 0, 0, 0.1);
+            --border-color: rgba(0, 0, 0, 0.15);
+            --shadow-color: rgba(0, 0, 0, 0.2);
 
-            --button-main-bg-start: #0078d4;
-            --button-main-bg-end: #005a9e;
-            --button-main-hover-start: #005a9e;
-            --button-main-hover-end: #003a6b;
+            --button-main-bg-start: #FF0000;
+            --button-main-bg-end: #CC0000;
+            --button-main-hover-start: #B30000;
+            --button-main-hover-end: #800000;
 
-            --button-secondary-bg-start: #6a11cb;
-            --button-secondary-bg-end: #2575fc;
-            --button-secondary-hover-start: #560fad;
-            --button-secondary-hover-end: #1a5ac8;
+            --button-secondary-bg-start: #0000FF;
+            --button-secondary-bg-end: #0000CC;
+            --button-secondary-hover-start: #0000B3;
+            --button-secondary-hover-end: #000080;
+            
+            --button-yellow-bg-start: #FFFF00;
+            --button-yellow-bg-end: #CCCC00;
+            --button-yellow-hover-start: #B3B300;
+            --button-yellow-hover-end: #808000;
 
             --glass-filter: blur(25px) saturate(180%);
 
-            --shape-color-1: rgba(102, 169, 210, 0.5);
-            --shape-color-2: rgba(231, 76, 60, 0.3);
-            --shape-color-3: rgba(106, 17, 203, 0.4);
-            --shape-color-4: rgba(255, 215, 0, 0.3);
-            --shape-color-5: rgba(0, 200, 83, 0.4);
-            --shape-color-6: rgba(255, 105, 180, 0.25);
-            --shape-color-7: rgba(70, 130, 180, 0.6);
-        }
+            --shape-color-1: rgba(0, 0, 255, 0.5);
+            --shape-color-2: rgba(255, 0, 0, 0.3);
+            --shape-color-3: rgba(255, 255, 0, 0.4);
+            --shape-color-4: rgba(255, 255, 255, 0.3);
+            --shape-color-5: rgba(0, 0, 255, 0.4);
+            --shape-color-6: rgba(255, 0, 0, 0.25);
+            --shape-color-7: rgba(255, 255, 0, 0.6);
 
-        body.dark-mode {
-            --bg-gradient-start-1: #1c2a3b;
-            --bg-gradient-mid-1: #2a3c50;
-            --bg-gradient-end-1: #3c526a;
-            --container-bg: rgba(30, 40, 50, 0.7);
-            --text-primary: #e0e6eb;
-            --text-secondary: #aebacd;
-            --heading-color: #76b9ed;
-            --border-color: rgba(255, 255, 255, 0.05);
-            --shadow-color: rgba(0, 0, 0, 0.3);
-
-            --button-main-bg-start: #76b9ed;
-            --button-main-bg-end: #4a8edb;
-            --button-main-hover-start: #4a8edb;
-            --button-main-hover-end: #2a6bbd;
-
-            --button-secondary-bg-start: #4a658a;
-            --button-secondary-bg-end: #2f4f6b;
-            --button-secondary-hover-start: #3a5570;
-            --button-secondary-hover-end: #1f3b50;
-
-            --glass-filter: blur(25px) saturate(180%) brightness(0.9);
-
-            --shape-color-1: rgba(46, 204, 113, 0.3);
-            --shape-color-2: rgba(52, 152, 219, 0.4);
-            --shape-color-3: rgba(155, 89, 182, 0.5);
-            --shape-color-4: rgba(255, 165, 0, 0.4);
-            --shape-color-5: rgba(0, 150, 136, 0.3);
-            --shape-color-6: rgba(255, 99, 71, 0.2);
-            --shape-color-7: rgba(100, 149, 237, 0.6);
+            --inner-shape-blue: rgba(0, 0, 255, 0.15); /* Increased opacity */
+            --inner-shape-red: rgba(255, 0, 0, 0.12);  /* Increased opacity */
+            --inner-shape-yellow: rgba(255, 255, 0, 0.1); /* Increased opacity */
+            --inner-shape-white: rgba(255, 255, 255, 0.18); /* Increased opacity */
         }
 
         body {
@@ -211,6 +191,21 @@
             transition: transform 0.3s ease-out, background-color 0.8s ease, box-shadow 0.8s ease, border-color 0.8s ease;
             position: relative;
             z-index: 1;
+            overflow: hidden; 
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 150px;
+            background: radial-gradient(circle at center top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
         }
 
         @keyframes fadeInScale {
@@ -224,6 +219,63 @@
             transform: translateY(-8px) scale(1.008);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), inset 0 0 0 1px var(--border-color);
         }
+
+        .inner-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(30px); /* Reduced blur */
+            opacity: 0.8; /* Increased opacity */
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            transition: background-color 0.8s ease;
+        }
+
+        .inner-shape-1 {
+            width: 150px; height: 150px;
+            background: var(--inner-shape-blue);
+            top: -50px; left: -50px;
+            animation: moveInnerShape1 20s ease-in-out infinite alternate;
+        }
+        .inner-shape-2 {
+            width: 120px; height: 120px;
+            background: var(--inner-shape-red);
+            bottom: -40px; right: -40px;
+            animation: moveInnerShape2 25s ease-in-out infinite alternate;
+        }
+        .inner-shape-3 {
+            width: 100px; height: 100px;
+            background: var(--inner-shape-yellow);
+            top: 60%; left: 10%;
+            animation: moveInnerShape3 18s ease-in-out infinite alternate;
+        }
+        .inner-shape-4 {
+            width: 80px; height: 80px;
+            background: var(--inner-shape-white);
+            bottom: 20%; right: 15%;
+            animation: moveInnerShape4 22s ease-in-out infinite alternate;
+        }
+
+        @keyframes moveInnerShape1 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 80px) scale(1.1); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        @keyframes moveInnerShape2 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-70px, -30px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        @keyframes moveInnerShape3 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -50px) scale(1.05); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        @keyframes moveInnerShape4 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-40px, 20px) scale(0.95); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
 
         h1, h2 {
             color: var(--heading-color);
@@ -323,29 +375,25 @@
             background: linear-gradient(to right, var(--button-main-hover-start), var(--button-main-hover-end));
         }
 
-        #discordButton, #darkModeToggle, #reflexTestButton {
+        #discordButton {
             background: linear-gradient(to right, var(--button-secondary-bg-start), var(--button-secondary-bg-end));
             padding: 16px 32px;
             font-size: 1.2em;
             border-radius: 14px;
         }
-        #discordButton:hover, #darkModeToggle:hover, #reflexTestButton:hover {
+        #discordButton:hover {
             background: linear-gradient(to right, var(--button-secondary-hover-start), var(--button-secondary-hover-end));
         }
 
-        #darkModeToggle {
-            margin-top: 25px;
-            top: 25px;
-            right: 25px;
-            font-size: 1.05em;
-            padding: 10px 22px;
-            border-radius: 12px;
+        #reflexTestButton {
+            background: linear-gradient(to right, var(--button-yellow-bg-start), var(--button-yellow-bg-end));
+            padding: 16px 32px;
+            font-size: 1.2em;
+            border-radius: 14px;
+            color: var(--text-primary); 
         }
-        body.dark-mode #darkModeToggle {
-             background: linear-gradient(to right, #adb5bd, #6c757d);
-        }
-        body.dark-mode #darkModeToggle:hover {
-             background: linear-gradient(to right, #ced4da, #868e96);
+        #reflexTestButton:hover {
+            background: linear-gradient(to right, var(--button-yellow-hover-start), var(--button-yellow-hover-end));
         }
 
         .adsbygoogle-container {
@@ -362,14 +410,7 @@
             transition: all 0.3s ease, background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
             width: 100%;
         }
-        body.dark-mode .adsbygoogle-container {
-            background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .adsbygoogle-container:hover {
-            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.08), 0 0 20px rgba(0, 120, 212, 0.15);
-        }
-
+        
         footer {
             margin-top: 50px;
             padding: 25px;
@@ -432,13 +473,6 @@
                 font-size: 1.1em;
                 border-radius: 12px;
             }
-            #darkModeToggle {
-                top: 15px;
-                right: 15px;
-                padding: 10px 20px;
-                font-size: 0.85em;
-                border-radius: 10px;
-            }
             .adsbygoogle-container {
                 min-height: 140px;
                 margin: 30px auto;
@@ -480,13 +514,6 @@
                 padding: 12px 20px;
                 border-radius: 10px;
             }
-            #darkModeToggle {
-                top: 10px;
-                right: 10px;
-                padding: 8px 15px;
-                font-size: 0.8em;
-                border-radius: 8px;
-            }
             .adsbygoogle-container {
                 min-height: 120px;
                 margin: 20px auto;
@@ -513,7 +540,10 @@
     </div>
 
     <div class="container">
-        <button id="darkModeToggle" class="button"><span>Mode Sombre/Clair</span></button>
+        <div class="inner-shape inner-shape-1"></div>
+        <div class="inner-shape inner-shape-2"></div>
+        <div class="inner-shape inner-shape-3"></div>
+        <div class="inner-shape inner-shape-4"></div>
 
         <h1>TurboDrive</h1>
         <p class="slogan">Votre dose quotidienne d'adrénaline et de savoir sur le sport automobile !</p>
@@ -549,24 +579,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const body = document.body;
-
-            function applyTheme(isDarkMode) {
-                if (isDarkMode) {
-                    body.classList.add('dark-mode');
-                } else {
-                    body.classList.remove('dark-mode');
-                }
-            }
-
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                applyTheme(true);
-            } else {
-                applyTheme(false);
-            }
-            
             setTimeout(() => {
                 try {
                     if (window.adsbygoogle && window.adsbygoogle.push) {
@@ -578,11 +590,6 @@
                     console.error("Erreur lors de l'appel à adsbygoogle.push:", error);
                 }
             }, 500);
-
-            darkModeToggle.addEventListener('click', () => {
-                const isDarkMode = body.classList.toggle('dark-mode');
-                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-            });
         });
     </script>
 </body>
