@@ -3,673 +3,637 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz F1 - TurboDrive</title>
+    <title>TurboDrive</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2416014288587554"
+         crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-2416014288587554">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
             --dark-bg-primary: #1a1a1a;
             --dark-bg-secondary: #222222;
             --text-light: #ffffff;
             --text-dark-grey: #cccccc;
-            --accent-red: #e94560;
-            --accent-blue: #007bff;
-            --accent-yellow: #ffcc00;
+            --accent-red: #e94560; /* Used for hover on nav and titles */
+            --accent-blue: #007bff; /* Used for footer links */
+            --accent-yellow: #ffcc00; /* Used for reflex game button and icon */
             --border-color: rgba(255, 255, 255, 0.1);
             --shadow-color: rgba(0, 0, 0, 0.5);
 
-            --button-primary-start: #FF0000;
-            --button-primary-end: #CC0000;
-            --button-primary-hover-start: #B30000;
-            --button-primary-hover-end: #800000;
-
-            --button-secondary-start: #0000FF;
-            --button-secondary-end: #0000CC;
-            --button-secondary-hover-start: #0000B3;
-            --button-secondary-hover-end: #000080;
-
-            --button-explanation-start: #28a745;
-            --button-explanation-end: #218838;
-            --button-explanation-hover-start: #1e7e34;
-            --button-explanation-hover-end: #165c27;
-
-            --button-generate-start: #007bff;
-            --button-generate-end: #0056b3;
-            --button-generate-hover-start: #00479e;
-            --button-generate-hover-end: #002d6b;
+            /* Specific button colors */
+            --button-yellow-start: #ffcc00;
+            --button-yellow-end: #e6b800;
+            --button-red-start: #e94560; /* Match accent-red */
+            --button-red-end: #d1304b; /* Slightly darker red */
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--dark-bg-primary);
+            background-color: #000000; /* Solid black background */
             color: var(--text-light);
             line-height: 1.6;
+        }
+
+        .header {
+            background-color: var(--dark-bg-secondary);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header .logo {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .header .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        .header .nav-links a:hover {
+            color: var(--accent-red);
+        }
+
+        .header .menu-icon {
+            display: none;
+            font-size: 1.8em;
+            cursor: pointer;
+        }
+
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            background: url('fond.png') no-repeat center center/cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-        }
-
-        .quiz-container {
-            background-color: var(--dark-bg-secondary);
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 700px;
-            width: 90%;
-            box-shadow: 0 10px 20px var(--shadow-color);
             text-align: center;
-            border: 1px solid var(--border-color);
+            padding: 0 20px;
+            overflow: hidden;
         }
 
-        .quiz-container h1 {
-            font-size: 3em;
-            color: var(--accent-red);
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5em;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+            text-shadow: 2px 2px 5px var(--shadow-color);
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
+            color: var(--text-dark-grey);
             margin-bottom: 30px;
+        }
+
+        .section {
+            padding: 80px 20px;
+            background-color: var(--dark-bg-secondary);
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 3em;
+            color: var(--text-light);
+            margin-bottom: 40px;
             text-transform: uppercase;
             font-weight: 800;
+            letter-spacing: 1px;
         }
 
-        .loader {
-            border: 8px solid #f3f3f3;
-            border-top: 8px solid var(--accent-blue);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 30px auto;
-            display: none;
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .about-text {
+            flex: 1 1 500px;
+            text-align: left;
+            padding-right: 20px;
         }
 
-        .question-section {
+        .about-text h2 {
+            font-size: 2.5em;
+            color: var(--accent-red);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .about-text p {
+            font-size: 1.1em;
+            color: var(--text-dark-grey);
+            margin-bottom: 25px;
+        }
+
+        .video-embed {
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-embed iframe {
+            width: 100%;
+            height: 450px;
+            display: block;
+        }
+
+        .games-section {
+            background-color: var(--dark-bg-primary);
+            padding: 50px 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .games-section h2 {
+            font-size: 2.8em;
+            color: var(--text-light);
             margin-bottom: 30px;
         }
 
-        .question-section h2 {
-            font-size: 1.8em;
+        .games-buttons-container { /* New flex container for game boxes */
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            justify-content: center;
+            gap: 30px; /* Space between game boxes */
+            margin-top: 40px;
+        }
+
+        .reflex-box,
+        .game-box { /* Apply common styling to both game boxes */
+            background-color: var(--dark-bg-secondary);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 350px; /* Adjust max-width for multiple boxes */
+            flex: 1 1 auto; /* Allow boxes to grow/shrink */
+            box-shadow: 0 5px 15px var(--shadow-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Push button to bottom if content varies */
+            align-items: center;
+            text-align: center;
+        }
+        
+        .reflex-box h3,
+        .game-box h3 {
+            font-size: 1.6em;
             color: var(--text-light);
             margin-bottom: 20px;
         }
 
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .reflex-box .icon-placeholder,
+        .game-box .icon-placeholder {
+            font-size: 4em;
+            color: var(--accent-yellow); /* Default icon color */
+            margin-bottom: 20px;
         }
 
-        .option-button {
-            background-color: #333333;
-            color: var(--text-light);
-            padding: 15px 25px;
-            border: 1px solid var(--border-color);
+        .game-box .icon-placeholder {
+            color: var(--accent-red); /* Icon color for quiz */
+        }
+
+        .button {
+            font-weight: 700;
+            padding: 15px 30px;
             border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            color: var(--dark-bg-primary); /* Text color for buttons */
+            margin-top: auto; /* Push button to the bottom */
+        }
+
+        .button-yellow { /* Style for reflex button */
+            background: linear-gradient(to right, var(--button-yellow-start), var(--button-yellow-end));
+        }
+
+        .button-red { /* Style for quiz button */
+            background: linear-gradient(to right, var(--button-red-start), var(--button-red-end));
+            color: var(--text-light); /* White text for red button */
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Specific hover effects for buttons */
+        .button-yellow:hover {
+            background: linear-gradient(to right, #e6b800, #cc9900); /* Slightly darker yellow on hover */
+        }
+
+        .button-red:hover {
+            background: linear-gradient(to right, #d1304b, #b31d34); /* Slightly darker red on hover */
+        }
+
+
+        .social-section {
+            background-color: var(--dark-bg-primary);
+            padding: 80px 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .social-links-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .social-link {
+            font-size: 3.5em;
+            color: var(--text-light);
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .social-link.youtube:hover { color: #FF0000; transform: translateY(-5px); }
+        .social-link.discord:hover { color: #7289DA; transform: translateY(-5px); }
+        .social-link.tiktok:hover { color: #69C9D0; transform: translateY(-5px); }
+
+        .contact-section {
+            background-color: var(--dark-bg-secondary);
+            padding: 80px 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
             text-align: left;
         }
 
-        .option-button:hover {
-            background-color: #444444;
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .option-button.selected {
-            border-color: var(--accent-yellow);
-            background-color: #555555;
-        }
-
-        .option-button.correct {
-            background-color: #28a745;
-            border-color: #28a745;
-            color: white;
-            font-weight: 700;
-        }
-
-        .option-button.incorrect {
-            background-color: #dc3545;
-            border-color: #dc3545;
-            color: white;
-            font-weight: 700;
-        }
-
-        .navigation-buttons {
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .nav-button {
-            background: linear-gradient(to right, var(--button-secondary-start), var(--button-secondary-end));
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex: 1;
-        }
-
-        .nav-button:hover {
-            background: linear-gradient(to right, var(--button-secondary-hover-start), var(--button-secondary-hover-end));
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        #submitQuiz {
-            background: linear-gradient(to right, var(--button-primary-start), var(--button-primary-end));
-        }
-
-        #submitQuiz:hover {
-            background: linear-gradient(to right, var(--button-primary-hover-start), var(--button-primary-hover-end));
-        }
-
-        .results-section {
-            margin-top: 40px;
-            font-size: 1.5em;
-            color: var(--text-light);
-        }
-
-        .results-section p {
+        .form-group {
             margin-bottom: 15px;
         }
 
-        .results-section #scoreDisplay {
-            font-weight: 700;
-            color: var(--accent-yellow);
-            font-size: 2em;
-        }
-
-        .retry-button {
-            background: linear-gradient(to right, var(--accent-blue), #0056b3);
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .retry-button:hover {
-            background: linear-gradient(to right, #0056b3, #003d80);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        #generateQuizButton {
-            background: linear-gradient(to right, var(--button-generate-start), var(--button-generate-end));
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-        }
-
-        #generateQuizButton:hover {
-            background: linear-gradient(to right, var(--button-generate-hover-start), var(--button-generate-hover-end));
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .results-details-container {
-            margin-top: 30px;
-            text-align: left;
-        }
-
-        .question-result-item {
-            background-color: #333333;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-        }
-
-        .question-result-item h3 {
-            color: var(--text-light);
-            font-size: 1.4em;
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-
-        .question-result-item p {
-            font-size: 0.95em;
-            color: var(--text-dark-grey);
+        .form-group label {
+            display: block;
             margin-bottom: 8px;
-        }
-
-        .question-result-item .user-answer {
-            color: var(--accent-yellow);
             font-weight: 600;
+            color: var(--text-light);
         }
 
-        .question-result-item .correct-answer {
-            color: #28a745;
-            font-weight: 600;
-        }
-
-        .explanation-button {
-            background: linear-gradient(to right, var(--button-explanation-start), var(--button-explanation-end));
-            color: white;
-            padding: 10px 15px;
-            border: none;
+        .form-group input[type="text"],
+        .form-group input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
             border-radius: 5px;
-            font-size: 0.9em;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-top: 10px;
+            background-color: #333333;
+            color: var(--text-light);
+            font-size: 1em;
+            box-sizing: border-box;
         }
 
-        .explanation-button:hover {
-            background: linear-gradient(to right, var(--button-explanation-hover-start), var(--button-explanation-hover-end));
-            transform: translateY(-1px);
+        .form-group.full-width {
+            grid-column: 1 / -1;
         }
 
-        .explanation-content {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #444444;
-            border-radius: 8px;
-            font-size: 0.9em;
+        footer {
+            background-color: #111111;
             color: var(--text-dark-grey);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            display: none;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .loading-indicator {
+            padding: 30px 20px;
+            text-align: center;
             font-size: 0.9em;
-            color: var(--accent-yellow);
-            margin-top: 10px;
-            display: none;
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent-red);
+        }
+
+        .adsbygoogle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 180px;
+            margin: 60px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: var(--dark-bg-secondary);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content h1 {
+                font-size: 3.8em;
+            }
+            .hero-content p {
+                font-size: 1.3em;
+            }
+            .section {
+                padding: 60px 20px;
+            }
+            .section-title {
+                font-size: 2.5em;
+            }
+            .about-text h2 {
+                font-size: 2em;
+            }
+            .about-text p {
+                font-size: 1em;
+            }
+            .video-embed iframe {
+                height: 350px;
+            }
+            .games-buttons-container {
+                flex-direction: column; /* Stack buttons vertically on smaller screens */
+                align-items: center;
+            }
+            .reflex-box,
+            .game-box {
+                max-width: 90%; /* Allow boxes to take more width when stacked */
+            }
         }
 
         @media (max-width: 768px) {
-            .quiz-container {
-                padding: 20px;
-                width: 95%;
+            .header {
+                padding: 15px 20px;
             }
-            .quiz-container h1 {
-                font-size: 2.2em;
-            }
-            .question-section h2 {
-                font-size: 1.4em;
-            }
-            .options-container {
-                gap: 10px;
-            }
-            .option-button {
-                font-size: 1em;
-                padding: 12px 20px;
-            }
-            .navigation-buttons {
+            .header .nav-links {
+                display: none;
                 flex-direction: column;
-                gap: 15px;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark-bg-secondary);
+                border-top: 1px solid var(--border-color);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
             }
-            .nav-button {
-                font-size: 0.95em;
+            .header .nav-links.active {
+                display: flex;
             }
-            .results-section {
-                font-size: 1.2em;
+            .header .nav-links a {
+                margin: 0;
+                padding: 15px 20px;
+                border-bottom: 1px solid var(--border-color);
+                text-align: left;
             }
-            .results-section #scoreDisplay {
-                font-size: 1.8em;
+            .header .menu-icon {
+                display: block;
             }
-            .retry-button {
-                font-size: 1em;
-                padding: 12px 25px;
+            .hero-section {
+                height: 450px;
             }
-            .question-result-item {
-                padding: 15px;
+            .hero-content h1 {
+                font-size: 3em;
             }
-            .question-result-item h3 {
-                font-size: 1.2em;
+            .hero-content p {
+                font-size: 1.1em;
+            }
+            .section {
+                padding: 40px 15px;
+            }
+            .section-title {
+                font-size: 2em;
+            }
+            .about-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .about-text {
+                padding-right: 0;
+                text-align: center;
+            }
+            .video-embed iframe {
+                height: 250px;
+            }
+            .social-links-grid {
+                gap: 25px;
+            }
+            .social-link {
+                font-size: 2.8em;
+            }
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+            .adsbygoogle-container {
+                min-height: 140px;
+                margin: 30px auto;
             }
         }
 
         @media (max-width: 480px) {
-            .quiz-container {
-                padding: 15px;
+            .header {
+                padding: 10px 15px;
             }
-            .quiz-container h1 {
+            .header .logo {
+                font-size: 1.5em;
+            }
+            .hero-section {
+                height: 350px;
+            }
+            .hero-content h1 {
+                font-size: 2.2em;
+            }
+            .hero-content p {
+                font-size: 0.9em;
+            }
+            .section {
+                padding: 30px 10px;
+            }
+            .section-title {
                 font-size: 1.8em;
             }
-            .question-section h2 {
-                font-size: 1.2em;
+            .about-text h2 {
+                font-size: 1.8em;
             }
-            .option-button {
+            .about-text p {
                 font-size: 0.9em;
-                padding: 10px 15px;
+            }
+            .video-embed iframe {
+                height: 180px;
+            }
+            .reflex-box,
+            .game-box {
+                padding: 20px;
+            }
+            .reflex-box .icon-placeholder,
+            .game-box .icon-placeholder {
+                font-size: 3em;
+            }
+            .social-links-grid {
+                gap: 15px;
+            }
+            .social-link {
+                font-size: 2.2em;
+            }
+            .adsbygoogle-container {
+                min-height: 120px;
+                margin: 20px auto;
             }
         }
     </style>
 </head>
 <body>
-    <div class="quiz-container">
-        <h1>Quiz F1</h1>
-        <div class="loader" id="loader"></div>
-        <div id="quiz-content" style="display: none;">
-            <div id="quiz-section">
-                <div class="question-section">
-                    <h2 id="questionText"></h2>
-                </div>
-                <div class="options-container" id="optionsContainer"></div>
-                <div class="navigation-buttons">
-                    <button id="prevButton" class="nav-button">Précédent</button>
-                    <button id="nextButton" class="nav-button">Suivant</button>
-                    <button id="submitQuiz" class="nav-button">Soumettre le Quiz</button>
-                </div>
-            </div>
-            <div id="results-section" class="results-section" style="display: none;">
-                <h2>Résultats du Quiz</h2>
-                <p>Votre score : <span id="scoreDisplay"></span></p>
-                <div id="results-details-container"></div>
-                <button id="retryButton" class="retry-button">Recommencer</button>
+    <header class="header">
+        <a href="#" class="logo">TurboDrive</a>
+        <nav class="nav-links" id="navLinks">
+            <a href="#">VIDEO</a>
+            <a href="#">JEUX</a>
+            <a href="#">BOUTIQUE</a>
+        </nav>
+        <div class="menu-icon" id="menuIcon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>TURBO DRIVE</h1>
+            <p>L'expérience ultime du sport automobile</p>
+        </div>
+    </section>
+
+    <section class="section about-section">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>À PROPOS :</h2>
+                <p>TurboDrive est une chaîne dédiée aux passionnés de sport automobile. Nous couvrons les disciplines majeures comme la Formule 1, le WRC, le WEC et bien d'autres. À travers des vidéos captivantes, des analyses détaillées et des moments exclusifs, nous vous plongeons dans l'adrénaline de la compétition comme si vous étiez sur la grille de départ.</p>
+                <p>REJOIGNEZ LA COMMUNAUTÉ TURBODRIVE ET VIVEZ L'UNIVERS DU SPORT AUTOMOBILE À FOND !</p>
             </div>
         </div>
-        <button id="generateQuizButton">Générer un nouveau Quiz</button>
+    </section>
+
+    <section class="section games-section">
+        <h2 class="section-title">JEUX</h2>
+        <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/oRIWvxeZTgk?si=A8xeZMuYH7I_nmOP" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="games-buttons-container">
+            <div class="reflex-box">
+                <div class="icon-placeholder">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h3>Testez vos réflexes !</h3>
+                <a href="reflex-test.html" class="button button-yellow">Jouer</a>
+            </div>
+            <div class="game-box">
+                <div class="icon-placeholder">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3>Quiz sur la F1</h3>
+                <a href="quiz-f1.html" class="button button-red">Jouer au Quiz</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section social-section">
+        <h2 class="section-title">REJOINS NOUS</h2>
+        <div class="social-links-grid">
+            <a href="https://www.youtube.com/@TurboDrive43" target="_blank" class="social-link youtube"><i class="fab fa-youtube"></i></a>
+            <a href="https://discord.gg/DxJ6K3vBxD" target="_blank" class="social-link discord"><i class="fab fa-discord"></i></a>
+            <a href="https://www.tiktok.com/@turbo_drive43" target="_blank" class="social-link tiktok"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </section>
+
+    <section class="section contact-section">
+        <h2 class="section-title">NOUS CONTACTER :</h2>
+        <form class="contact-form">
+            <div class="form-group full-width">
+                <label for="email">Saisir votre adresse mail :</label>
+                <input type="email" id="email" name="email" placeholder="Votre adresse email">
+            </div>
+            <div class="form-group">
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom" placeholder="Votre nom">
+            </div>
+            <div class="form-group">
+                <label for="prenom">Prénom :</label>
+                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom">
+            </div>
+        </form>
+    </section>
+
+    <div class="adsbygoogle-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-2416014288587554"
+             data-ad-slot="9969293667"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
     </div>
 
+    <footer>
+        <p>© 2025 TurboDrive. Tous droits réservés. <a href="#">Politique de confidentialité</a></p>
+    </footer>
+
     <script>
-        let questions = [];
-        let currentQuestionIndex = 0;
-        let userAnswers = [];
-        let selectedOptionElement = null;
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuIcon = document.getElementById('menuIcon');
+            const navLinks = document.getElementById('navLinks');
 
-        const quizContainer = document.querySelector('.quiz-container');
-        const loader = document.getElementById('loader');
-        const quizContent = document.getElementById('quiz-content');
-        const questionText = document.getElementById('questionText');
-        const optionsContainer = document.getElementById('optionsContainer');
-        const prevButton = document.getElementById('prevButton');
-        const nextButton = document.getElementById('nextButton');
-        const submitQuizButton = document.getElementById('submitQuiz');
-        const quizSection = document.getElementById('quiz-section');
-        const resultsSection = document.getElementById('results-section');
-        const scoreDisplay = document.getElementById('scoreDisplay');
-        const resultsDetailsContainer = document.getElementById('results-details-container');
-        const retryButton = document.getElementById('retryButton');
-        const generateQuizButton = document.getElementById('generateQuizButton');
+            menuIcon.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
 
-        async function generateQuiz() {
-            quizContent.style.display = 'none';
-            loader.style.display = 'block';
-            generateQuizButton.disabled = true;
-
-            const uniqueifier = Math.random().toString(36).substring(2, 15);
-            // Prompt modifié pour insister sur des questions différentes et variées
-            const prompt = `Génère 5 questions de quiz différentes et à choix multiples sur la Formule 1, couvrant des aspects variés (histoire, pilotes, écuries, règles, technologies). Chaque question doit avoir 4 options de réponse et une seule bonne réponse. Fournis les questions, les options et la bonne réponse au format JSON. Identifiant unique: ${uniqueifier}`;
-
-            let chatHistory = [];
-            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-            const payload = {
-                contents: chatHistory,
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: "ARRAY",
-                        items: {
-                            type: "OBJECT",
-                            properties: {
-                                "question": { "type": "STRING" },
-                                "options": {
-                                    "type": "ARRAY",
-                                    "items": { "type": "STRING" }
-                                },
-                                "answer": { "type": "STRING" }
-                            },
-                            "propertyOrdering": ["question", "options", "answer"]
-                        }
-                    }
-                }
-            };
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const result = await response.json();
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    let jsonString = result.candidates[0].content.parts[0].text;
-                    
-                    const jsonStartIndex = jsonString.indexOf('[');
-                    const jsonEndIndex = jsonString.lastIndexOf(']');
-                    if (jsonStartIndex !== -1 && jsonEndIndex !== -1 && jsonEndIndex > jsonStartIndex) {
-                        jsonString = jsonString.substring(jsonStartIndex, jsonEndIndex + 1);
+            setTimeout(() => {
+                try {
+                    if (window.adsbygoogle && window.adsbygoogle.push) {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
                     } else {
-                        const objStartIndex = jsonString.indexOf('{');
-                        const objEndIndex = jsonString.lastIndexOf('}');
-                        if (objStartIndex !== -1 && objEndIndex !== -1 && objEndIndex > objStartIndex) {
-                            jsonString = `[${jsonString.substring(objStartIndex, objEndIndex + 1)}]`;
-                        }
+                        console.warn("adsbygoogle n'est pas disponible. Les publicités pourraient ne pas se charger.");
                     }
-
-                    try {
-                        questions = JSON.parse(jsonString);
-                        if (!Array.isArray(questions) || questions.length === 0 || !questions[0].question) {
-                            throw new Error("Generated questions are not in expected format.");
-                        }
-                        resetQuizState();
-                        loadQuestion();
-                        quizContent.style.display = 'block';
-                    } catch (parseError) {
-                        alert('Erreur lors du parsing du quiz généré. Le format JSON est incorrect.');
-                        console.error("Erreur de parsing JSON:", parseError);
-                        console.error("Chaîne JSON qui a échoué à l'analyse:", jsonString);
-                    }
-                } else {
-                    alert('Impossible de générer le quiz. Structure de réponse inattendue ou contenu manquant.');
-                    console.error("Structure de réponse inattendue ou contenu manquant de l'API:", result);
+                } catch (error) {
+                    console.error("Erreur lors de l'appel à adsbygoogle.push:", error);
                 }
-            } catch (error) {
-                alert('Erreur lors de la génération du quiz. Veuillez réessayer.');
-                console.error("Erreur de fetch API:", error);
-            } finally {
-                loader.style.display = 'none';
-                generateQuizButton.disabled = false;
-            }
-        }
-
-        function resetQuizState() {
-            currentQuestionIndex = 0;
-            userAnswers = new Array(questions.length).fill(null);
-            resultsSection.style.display = 'none';
-            quizSection.style.display = 'block';
-        }
-
-        function loadQuestion() {
-            if (questions.length === 0) {
-                questionText.textContent = "Cliquez sur 'Générer un nouveau Quiz' pour commencer !";
-                optionsContainer.innerHTML = '';
-                prevButton.style.display = 'none';
-                nextButton.style.display = 'none';
-                submitQuizButton.style.display = 'none';
-                return;
-            }
-
-            const currentQuestion = questions[currentQuestionIndex];
-            questionText.textContent = `${currentQuestionIndex + 1}. ${currentQuestion.question}`;
-            optionsContainer.innerHTML = '';
-            selectedOptionElement = null;
-
-            currentQuestion.options.forEach((option) => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option-button');
-                button.setAttribute('data-option', option);
-                button.onclick = () => selectOption(button, option);
-                optionsContainer.appendChild(button);
-
-                if (userAnswers[currentQuestionIndex] === option) {
-                    button.classList.add('selected');
-                    selectedOptionElement = button;
-                }
-            });
-
-            prevButton.style.display = currentQuestionIndex === 0 ? 'none' : 'inline-block';
-            nextButton.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
-            submitQuizButton.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
-        }
-
-        function selectOption(button, option) {
-            if (selectedOptionElement) {
-                selectedOptionElement.classList.remove('selected');
-            }
-            button.classList.add('selected');
-            selectedOptionElement = button;
-            userAnswers[currentQuestionIndex] = option;
-        }
-
-        function navigateQuestions(direction) {
-            if (direction === 'next') {
-                currentQuestionIndex++;
-            } else if (direction === 'prev') {
-                currentQuestionIndex--;
-            }
-            loadQuestion();
-        }
-
-        function calculateScore() {
-            let score = 0;
-            questions.forEach((question, index) => {
-                const userAnswer = userAnswers[index];
-                const correctAnswer = question.answer;
-                if (userAnswer === correctAnswer) {
-                    score++;
-                }
-            });
-            return score;
-        }
-
-        async function getF1Explanation(question, correctAnswer, userAnswer, explanationDiv, loadingIndicator) {
-            explanationDiv.style.display = 'none';
-            loadingIndicator.style.display = 'block';
-            loadingIndicator.textContent = 'Génération de l\'explication...';
-
-            const prompt = `Explique pourquoi '${correctAnswer}' est la bonne réponse à la question '${question}'. Mentionne aussi pourquoi '${userAnswer}' était une mauvaise réponse si elle est différente de la bonne réponse. Rédige une explication concise et informative sur la Formule 1.`;
-
-            let chatHistory = [];
-            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-            const payload = { contents: chatHistory };
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const result = await response.json();
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    explanationDiv.textContent = text;
-                    explanationDiv.style.display = 'block';
-                } else {
-                    explanationDiv.textContent = 'Impossible de générer l\'explication. Veuillez réessayer.';
-                    explanationDiv.style.display = 'block';
-                    console.error("Structure de réponse inattendue ou contenu manquant:", result);
-                }
-            } catch (error) {
-                explanationDiv.textContent = 'Erreur lors de la connexion à l\'IA. Veuillez vérifier votre connexion ou réessayer plus tard.';
-                explanationDiv.style.display = 'block';
-                console.error("Erreur de fetch API:", error);
-            } finally {
-                loadingIndicator.style.display = 'none';
-            }
-        }
-
-
-        function showResults() {
-            quizSection.style.display = 'none';
-            resultsSection.style.display = 'block';
-            const finalScore = calculateScore();
-            scoreDisplay.textContent = `${finalScore} / ${questions.length}`;
-            resultsDetailsContainer.innerHTML = '';
-
-            questions.forEach((question, index) => {
-                const userAnswer = userAnswers[index];
-                const correctAnswer = question.answer;
-
-                const resultItem = document.createElement('div');
-                resultItem.classList.add('question-result-item');
-
-                const questionHeading = document.createElement('h3');
-                questionHeading.textContent = `Question ${index + 1}: ${question.question}`;
-                resultItem.appendChild(questionHeading);
-
-                const userAnswerPara = document.createElement('p');
-                userAnswerPara.innerHTML = `Votre réponse: <span class="user-answer">${userAnswer || 'Non répondu'}</span>`;
-                resultItem.appendChild(userAnswerPara);
-
-                const correctAnswerPara = document.createElement('p');
-                correctAnswerPara.innerHTML = `Bonne réponse: <span class="correct-answer">${correctAnswer}</span>`;
-                resultItem.appendChild(correctAnswerPara);
-
-                const explanationButton = document.createElement('button');
-                explanationButton.classList.add('explanation-button');
-                explanationButton.textContent = 'Voir l\'explication ✨';
-                resultItem.appendChild(explanationButton);
-
-                const loadingIndicator = document.createElement('p');
-                loadingIndicator.classList.add('loading-indicator');
-                loadingIndicator.textContent = 'Génération de l\'explication...';
-                resultItem.appendChild(loadingIndicator);
-
-                const explanationContent = document.createElement('div');
-                explanationContent.classList.add('explanation-content');
-                resultItem.appendChild(explanationContent);
-
-                explanationButton.addEventListener('click', () => {
-                    getF1Explanation(question.question, correctAnswer, userAnswer, explanationContent, loadingIndicator);
-                });
-
-                resultsDetailsContainer.appendChild(resultItem);
-            });
-        }
-
-        prevButton.addEventListener('click', () => navigateQuestions('prev'));
-        nextButton.addEventListener('click', () => navigateQuestions('next'));
-        submitQuizButton.addEventListener('click', showResults);
-        retryButton.addEventListener('click', resetQuizState);
-        generateQuizButton.addEventListener('click', generateQuiz);
-
-        quizContent.style.display = 'none';
-        generateQuizButton.style.display = 'block';
-        loader.style.display = 'none';
+            }, 500);
+        });
     </script>
 </body>
 </html>
