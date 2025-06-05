@@ -32,7 +32,7 @@
             --button-explanation-hover-start: #1e7e34;
             --button-explanation-hover-end: #165c27;
 
-            --button-generate-start: #007bff; /* Blue for generate button */
+            --button-generate-start: #007bff;
             --button-generate-end: #0056b3;
             --button-generate-hover-start: #00479e;
             --button-generate-hover-end: #002d6b;
@@ -79,7 +79,7 @@
             height: 50px;
             animation: spin 1s linear infinite;
             margin: 30px auto;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
         @keyframes spin {
@@ -412,12 +412,22 @@
         const retryButton = document.getElementById('retryButton');
         const generateQuizButton = document.getElementById('generateQuizButton');
 
+        // Fonction pour mélanger un tableau (algorithme de Fisher-Yates)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
         async function generateQuiz() {
             quizContent.style.display = 'none';
             loader.style.display = 'block';
             generateQuizButton.disabled = true;
 
-            const prompt = `Génère 5 questions de quiz à choix multiples sur la Formule 1. Chaque question doit avoir 4 options de réponse et une seule bonne réponse. Fournis les questions, les options et la bonne réponse au format JSON.`;
+            const uniqueifier = Math.random().toString(36).substring(2, 15);
+            // Demander plus de questions et insister sur la diversité
+            const prompt = `Génère 15 questions de quiz différentes et à choix multiples sur la Formule 1, couvrant des aspects variés (histoire, pilotes, écuries, règles, technologies, circuits, records). Chaque question doit avoir 4 options de réponse et une seule bonne réponse. Fournis les questions, les options et la bonne réponse au format JSON. Identifiant unique pour la génération: ${uniqueifier}`;
 
             let chatHistory = [];
             chatHistory.push({ role: "user", parts: [{ text: prompt }] });
@@ -457,14 +467,41 @@
                 if (result.candidates && result.candidates.length > 0 &&
                     result.candidates[0].content && result.candidates[0].content.parts &&
                     result.candidates[0].content.parts.length > 0) {
-                    const jsonString = result.candidates[0].content.parts[0].text;
-                    questions = JSON.parse(jsonString);
-                    resetQuizState();
-                    loadQuestion();
-                    quizContent.style.display = 'block';
+                    let jsonString = result.candidates[0].content.parts[0].text;
+                    
+                    const jsonStartIndex = jsonString.indexOf('[');
+                    const jsonEndIndex = jsonString.lastIndexOf(']');
+                    if (jsonStartIndex !== -1 && jsonEndIndex !== -1 && jsonEndIndex > jsonStartIndex) {
+                        jsonString = jsonString.substring(jsonStartIndex, jsonEndIndex + 1);
+                    } else {
+                        const objStartIndex = jsonString.indexOf('{');
+                        const objEndIndex = jsonString.lastIndexOf('}');
+                        if (objStartIndex !== -1 && objEndIndex !== -1 && objEndIndex > objStartIndex) {
+                            jsonString = `[${jsonString.substring(objStartIndex, objEndIndex + 1)}]`;
+                        }
+                    }
+
+                    try {
+                        let allQuestions = JSON.parse(jsonString);
+                        if (!Array.isArray(allQuestions) || allQuestions.length < 5 || !allQuestions[0].question) {
+                            throw new Error("Generated questions are not in expected format or not enough questions.");
+                        }
+                        
+                        // Mélanger toutes les questions reçues et en prendre seulement 5
+                        shuffleArray(allQuestions);
+                        questions = allQuestions.slice(0, 5);
+
+                        resetQuizState();
+                        loadQuestion();
+                        quizContent.style.display = 'block';
+                    } catch (parseError) {
+                        alert('Erreur lors du parsing du quiz généré. Le format JSON est incorrect ou les questions sont insuffisantes.');
+                        console.error("Erreur de parsing JSON:", parseError);
+                        console.error("Chaîne JSON qui a échoué à l'analyse:", jsonString);
+                    }
                 } else {
-                    alert('Impossible de générer le quiz. Structure de réponse inattendue.');
-                    console.error("Structure de réponse inattendue ou contenu manquant:", result);
+                    alert('Impossible de générer le quiz. Structure de réponse inattendue ou contenu manquant.');
+                    console.error("Structure de réponse inattendue ou contenu manquant de l'API:", result);
                 }
             } catch (error) {
                 alert('Erreur lors de la génération du quiz. Veuillez réessayer.');
@@ -497,7 +534,11 @@
             optionsContainer.innerHTML = '';
             selectedOptionElement = null;
 
-            currentQuestion.options.forEach((option) => {
+            // Mélanger les options pour chaque question
+            const shuffledOptions = [...currentQuestion.options];
+            shuffleArray(shuffledOptions);
+
+            shuffledOptions.forEach((option) => {
                 const button = document.createElement('button');
                 button.textContent = option;
                 button.classList.add('option-button');
