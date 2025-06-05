@@ -368,8 +368,7 @@
 <body>
     <div class="quiz-container">
         <h1>Quiz F1</h1>
-        <div class="loader" id="loader"></div>
-        <div id="quiz-content" style="display: none;">
+        <div id="quiz-content">
             <div id="quiz-section">
                 <div class="question-section">
                     <h2 id="questionText"></h2>
@@ -388,10 +387,113 @@
                 <button id="retryButton" class="retry-button">Recommencer</button>
             </div>
         </div>
-        <button id="generateQuizButton">Générer un nouveau Quiz</button>
+        <button id="generateQuizButton">Démarrer/Recommencer le Quiz</button>
     </div>
 
     <script>
+        const allPredefinedQuestions = [
+            {
+                question: "Qui détient le record du plus grand nombre de championnats du monde de Formule 1 ?",
+                options: ["Lewis Hamilton", "Juan Manuel Fangio", "Michael Schumacher", "Sebastian Vettel"],
+                answer: "Michael Schumacher"
+            },
+            {
+                question: "Quelle écurie a remporté le plus de titres de champion du monde des constructeurs en F1 ?",
+                options: ["Mercedes", "McLaren", "Ferrari", "Williams"],
+                answer: "Ferrari"
+            },
+            {
+                question: "Quel est le nom du circuit de Monaco ?",
+                options: ["Circuit de la Sarthe", "Circuit de Catalogne", "Circuit de Spa-Francorchamps", "Circuit de Monaco"],
+                answer: "Circuit de Monaco"
+            },
+            {
+                question: "En quelle année le système DRS (Drag Reduction System) a-t-il été introduit en Formule 1 ?",
+                options: ["2009", "2010", "2011", "2012"],
+                answer: "2011"
+            },
+            {
+                question: "Quel pilote est surnommé 'Iceman' ?",
+                options: ["Fernando Alonso", "Kimi Räikkönen", "Max Verstappen", "Daniel Ricciardo"],
+                answer: "Kimi Räikkönen"
+            },
+            {
+                question: "Quelle est la pénalité la plus courante pour un faux départ en F1 ?",
+                options: ["10 secondes de pénalité", "Drive-through penalty", "Stop-and-go penalty de 10 secondes", "Exclusion de la course"],
+                answer: "Drive-through penalty"
+            },
+            {
+                question: "Combien de points reçoit le vainqueur d'un Grand Prix de Formule 1 ?",
+                options: ["20", "25", "15", "10"],
+                answer: "25"
+            },
+            {
+                question: "Quel pays a accueilli le premier Grand Prix de Formule 1 en 1950 ?",
+                options: ["Italie", "France", "Royaume-Uni", "Allemagne"],
+                answer: "Royaume-Uni"
+            },
+            {
+                question: "Qui est le président de la FIA (Fédération Internationale de l'Automobile) ?",
+                options: ["Jean Todt", "Mohammed Ben Sulayem", "Bernie Ecclestone", "Stefano Domenicali"],
+                answer: "Mohammed Ben Sulayem"
+            },
+            {
+                question: "Quelle écurie a été la première à utiliser un moteur turbo en F1 ?",
+                options: ["Ferrari", "Renault", "BMW", "Porsche"],
+                answer: "Renault"
+            },
+            {
+                question: "Quel est le nom de la ligne sur laquelle les voitures se placent au début de la course ?",
+                options: ["La ligne de départ", "La grille de départ", "La pole position", "La ligne d'attaque"],
+                answer: "La grille de départ"
+            },
+            {
+                question: "Quel pilote a remporté le Championnat du Monde de F1 en 2021 dans des circonstances controversées ?",
+                options: ["Lewis Hamilton", "Max Verstappen", "Charles Leclerc", "Sergio Pérez"],
+                answer: "Max Verstappen"
+            },
+            {
+                question: "Combien de zones DRS y a-t-il généralement sur un circuit de F1 ?",
+                options: ["Une", "Deux", "Trois", "Quatre ou plus"],
+                answer: "Deux"
+            },
+            {
+                question: "Quel est le surnom du Grand Prix de Monaco ?",
+                options: ["La Perle de la Côte d'Azur", "Le Joyau de la Couronne", "La Course aux Rubans", "Le Grand Prix glamour"],
+                answer: "Le Joyau de la Couronne"
+            },
+            {
+                question: "Quel est l'objectif principal du Safety Car en F1 ?",
+                options: ["Arrêter la course", "Ralentir les voitures en cas d'incident", "Protéger la pole position", "Signaler la fin de la course"],
+                answer: "Ralentir les voitures en cas d'incident"
+            },
+            {
+                question: "Quel pilote a le plus de pole positions en Formule 1 ?",
+                options: ["Ayrton Senna", "Michael Schumacher", "Lewis Hamilton", "Jim Clark"],
+                answer: "Lewis Hamilton"
+            },
+            {
+                question: "Quelle est la couleur du drapeau agité pour signaler la fin d'une course ?",
+                options: ["Drapeau rouge", "Drapeau jaune", "Drapeau à damier", "Drapeau noir et blanc"],
+                answer: "Drapeau à damier"
+            },
+            {
+                question: "Quel est le nom de l'instance dirigeante du sport automobile mondial ?",
+                options: ["F1 Management", "FIA", "FOM", "GPDA"],
+                answer: "FIA"
+            },
+            {
+                question: "Dans quelle ville se trouve le circuit de Monza ?",
+                options: ["Rome", "Milan", "Venise", "Monza"],
+                answer: "Monza"
+            },
+            {
+                question: "Quel était le nom de l'écurie de F1 de Niki Lauda et Alain Prost dans les années 1980 ?",
+                options: ["Ferrari", "McLaren", "Williams", "Benetton"],
+                answer: "McLaren"
+            }
+        ];
+
         let questions = [];
         let currentQuestionIndex = 0;
         let userAnswers = [];
@@ -419,110 +521,20 @@
             }
         }
 
-        async function generateQuiz() {
-            quizContent.style.display = 'none';
-            loader.style.display = 'block';
-            generateQuizButton.disabled = true;
+        function startNewQuiz() {
+            shuffleArray(allPredefinedQuestions);
+            questions = allPredefinedQuestions.slice(0, 5); 
 
-            const uniqueifier = Math.random().toString(36).substring(2, 15);
-            const prompt = `Génère 15 questions de quiz différentes et à choix multiples sur la Formule 1, couvrant des aspects variés (histoire, pilotes, écuries, règles, technologies, circuits, records, événements marquants, voitures spécifiques). Chaque question doit avoir 4 options de réponse et une seule bonne réponse. Assure-toi que les questions ne se répètent pas et soient réellement variées. Fournis les questions, les options et la bonne réponse au format JSON. Identifiant unique pour la génération: ${uniqueifier}`;
-
-            let chatHistory = [];
-            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-            const payload = {
-                contents: chatHistory,
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: "ARRAY",
-                        items: {
-                            type: "OBJECT",
-                            properties: {
-                                "question": { "type": "STRING" },
-                                "options": {
-                                    "type": "ARRAY",
-                                    "items": { "type": "STRING" }
-                                },
-                                "answer": { "type": "STRING" }
-                            },
-                            "propertyOrdering": ["question", "options", "answer"]
-                        }
-                    }
-                }
-            };
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const result = await response.json();
-                console.log("Raw API response:", result);
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    let jsonString = result.candidates[0].content.parts[0].text;
-                    console.log("JSON string from API:", jsonString);
-                    
-                    const jsonStartIndex = jsonString.indexOf('[');
-                    const jsonEndIndex = jsonString.lastIndexOf(']');
-                    if (jsonStartIndex !== -1 && jsonEndIndex !== -1 && jsonEndIndex > jsonStartIndex) {
-                        jsonString = jsonString.substring(jsonStartIndex, jsonEndIndex + 1);
-                    } else {
-                        const objStartIndex = jsonString.indexOf('{');
-                        const objEndIndex = jsonString.lastIndexOf('}');
-                        if (objStartIndex !== -1 && objEndIndex !== -1 && objEndIndex > objStartIndex) {
-                            jsonString = `[${jsonString.substring(objStartIndex, objEndIndex + 1)}]`;
-                        } else {
-                            throw new Error("No valid JSON structure found in response.");
-                        }
-                    }
-
-                    try {
-                        let allQuestions = JSON.parse(jsonString);
-                        if (!Array.isArray(allQuestions) || allQuestions.length < 5 || !allQuestions[0].question) {
-                            throw new Error("Generated questions are not in expected format or not enough questions (need at least 5).");
-                        }
-                        
-                        shuffleArray(allQuestions);
-                        questions = allQuestions.slice(0, 5);
-
-                        resetQuizState();
-                        loadQuestion();
-                        quizContent.style.display = 'block';
-                    } catch (parseError) {
-                        alert('Erreur lors du parsing du quiz généré. Le format JSON est incorrect ou les questions sont insuffisantes. Veuillez consulter la console pour plus de détails.');
-                        console.error("Erreur de parsing JSON:", parseError);
-                        console.error("Chaîne JSON qui a échoué à l'analyse:", jsonString);
-                    }
-                } else {
-                    alert('Impossible de générer le quiz. Structure de réponse inattendue ou contenu manquant de l\'API. Veuillez consulter la console pour plus de détails.');
-                    console.error("Structure de réponse inattendue ou contenu manquant de l'API:", result);
-                }
-            } catch (error) {
-                alert('Erreur lors de la communication avec l\'IA pour générer le quiz. Veuillez réessayer.');
-                console.error("Erreur de fetch API:", error);
-            } finally {
-                loader.style.display = 'none';
-                generateQuizButton.disabled = false;
-            }
-        }
-
-        function resetQuizState() {
             currentQuestionIndex = 0;
             userAnswers = new Array(questions.length).fill(null);
             resultsSection.style.display = 'none';
             quizSection.style.display = 'block';
+            loadQuestion();
         }
 
         function loadQuestion() {
             if (questions.length === 0) {
-                questionText.textContent = "Cliquez sur 'Générer un nouveau Quiz' pour commencer !";
+                questionText.textContent = "Cliquez sur 'Démarrer/Recommencer le Quiz' pour commencer !";
                 optionsContainer.innerHTML = '';
                 prevButton.style.display = 'none';
                 nextButton.style.display = 'none';
@@ -598,7 +610,7 @@
             chatHistory.push({ role: "user", parts: [{ text: prompt }] });
 
             const payload = { contents: chatHistory };
-            const apiKey = "";
+            const apiKey = "VOTRE_CLE_API_ICI"; 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
             try {
@@ -681,12 +693,10 @@
         prevButton.addEventListener('click', () => navigateQuestions('prev'));
         nextButton.addEventListener('click', () => navigateQuestions('next'));
         submitQuizButton.addEventListener('click', showResults);
-        retryButton.addEventListener('click', resetQuizState);
-        generateQuizButton.addEventListener('click', generateQuiz);
+        retryButton.addEventListener('click', startNewQuiz);
+        generateQuizButton.addEventListener('click', startNewQuiz);
 
-        quizContent.style.display = 'none';
-        generateQuizButton.style.display = 'block';
-        loader.style.display = 'none';
+        document.addEventListener('DOMContentLoaded', startNewQuiz);
     </script>
 </body>
 </html>
