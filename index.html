@@ -15,35 +15,17 @@
             --dark-bg-secondary: #222222;
             --text-light: #ffffff;
             --text-dark-grey: #cccccc;
-            --accent-red: #e94560;
-            --accent-blue: #007bff;
-            --accent-yellow: #ffcc00;
+            --accent-red: #e94560; /* Used for hover on nav and titles */
+            --accent-blue: #007bff; /* Used for footer links */
+            --accent-yellow: #ffcc00; /* Used for reflex game button and icon */
             --border-color: rgba(255, 255, 255, 0.1);
             --shadow-color: rgba(0, 0, 0, 0.5);
 
-            --container-bg: rgba(255, 255, 255, 0.95);
-
-            --button-main-bg-start: #FF0000;
-            --button-main-bg-end: #CC0000;
-            --button-main-hover-start: #B30000;
-            --button-main-hover-end: #800000;
-
-            --button-secondary-bg-start: #0000FF;
-            --button-secondary-bg-end: #0000CC;
-            --button-secondary-hover-start: #0000B3;
-            --button-secondary-hover-end: #000080;
-            
-            --button-yellow-bg-start: #FFFF00;
-            --button-yellow-bg-end: #CCCC00;
-            --button-yellow-hover-start: #B3B300;
-            --button-yellow-hover-end: #808000;
-
-            --glass-filter: blur(25px) saturate(180%);
-
-            --inner-shape-blue: rgba(0, 0, 255, 0.15);
-            --inner-shape-red: rgba(255, 0, 0, 0.12);
-            --inner-shape-yellow: rgba(255, 255, 0, 0.1);
-            --inner-shape-white: rgba(255, 255, 255, 0.18);
+            /* Specific button colors */
+            --button-yellow-start: #ffcc00;
+            --button-yellow-end: #e6b800;
+            --button-red-start: #e94560; /* Match accent-red */
+            --button-red-end: #d1304b; /* Slightly darker red */
         }
 
         body {
@@ -208,36 +190,81 @@
             margin-bottom: 30px;
         }
 
-        .reflex-box {
+        .games-buttons-container { /* New flex container for game boxes */
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            justify-content: center;
+            gap: 30px; /* Space between game boxes */
+            margin-top: 40px;
+        }
+
+        .reflex-box,
+        .game-box { /* Apply common styling to both game boxes */
             background-color: var(--dark-bg-secondary);
             border-radius: 15px;
             padding: 30px;
-            max-width: 400px;
-            margin: 0 auto;
+            max-width: 350px; /* Adjust max-width for multiple boxes */
+            flex: 1 1 auto; /* Allow boxes to grow/shrink */
             box-shadow: 0 5px 15px var(--shadow-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Push button to bottom if content varies */
+            align-items: center;
+            text-align: center;
         }
-
-        .reflex-box .icon-placeholder {
-            font-size: 4em;
-            color: var(--accent-yellow);
+        
+        .reflex-box h3,
+        .game-box h3 {
+            font-size: 1.6em;
+            color: var(--text-light);
             margin-bottom: 20px;
         }
 
-        .reflex-box .button {
-            background: linear-gradient(to right, var(--accent-yellow), #e6b800);
-            color: var(--dark-bg-primary);
+        .reflex-box .icon-placeholder,
+        .game-box .icon-placeholder {
+            font-size: 4em;
+            color: var(--accent-yellow); /* Default icon color */
+            margin-bottom: 20px;
+        }
+
+        .game-box .icon-placeholder {
+            color: var(--accent-red); /* Icon color for quiz */
+        }
+
+        .button {
             font-weight: 700;
             padding: 15px 30px;
             border-radius: 8px;
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s ease;
+            color: var(--dark-bg-primary); /* Text color for buttons */
+            margin-top: auto; /* Push button to the bottom */
         }
 
-        .reflex-box .button:hover {
+        .button-yellow { /* Style for reflex button */
+            background: linear-gradient(to right, var(--button-yellow-start), var(--button-yellow-end));
+        }
+
+        .button-red { /* Style for quiz button */
+            background: linear-gradient(to right, var(--button-red-start), var(--button-red-end));
+            color: var(--text-light); /* White text for red button */
+        }
+
+        .button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
+
+        /* Specific hover effects for buttons */
+        .button-yellow:hover {
+            background: linear-gradient(to right, #e6b800, #cc9900); /* Slightly darker yellow on hover */
+        }
+
+        .button-red:hover {
+            background: linear-gradient(to right, #d1304b, #b31d34); /* Slightly darker red on hover */
+        }
+
 
         .social-section {
             background-color: var(--dark-bg-primary);
@@ -362,6 +389,14 @@
             .video-embed iframe {
                 height: 350px;
             }
+            .games-buttons-container {
+                flex-direction: column; /* Stack buttons vertically on smaller screens */
+                align-items: center;
+            }
+            .reflex-box,
+            .game-box {
+                max-width: 90%; /* Allow boxes to take more width when stacked */
+            }
         }
 
         @media (max-width: 768px) {
@@ -464,10 +499,12 @@
             .video-embed iframe {
                 height: 180px;
             }
-            .reflex-box {
+            .reflex-box,
+            .game-box {
                 padding: 20px;
             }
-            .reflex-box .icon-placeholder {
+            .reflex-box .icon-placeholder,
+            .game-box .icon-placeholder {
                 font-size: 3em;
             }
             .social-links-grid {
@@ -516,14 +553,23 @@
     <section class="section games-section">
         <h2 class="section-title">JEUX</h2>
         <div class="video-embed">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/oRIWvxeZTgk?si=YG9dG5ZcWpiyHDAS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
-        <div class="reflex-box">
-            <div class="icon-placeholder">
-                <i class="fas fa-gamepad"></i>
+        <div class="games-buttons-container">
+            <div class="reflex-box">
+                <div class="icon-placeholder">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h3>Testez vos réflexes !</h3>
+                <a href="reflex-test.html" class="button button-yellow">Jouer</a>
             </div>
-            <h3>Testez vos réflexes !</h3>
-            <a href="reflex-test.html" class="button">Jouer</a>
+            <div class="game-box">
+                <div class="icon-placeholder">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3>Quiz sur la F1</h3>
+                <a href="quiz-f1.html" class="button button-red">Jouer au Quiz</a>
+            </div>
         </div>
     </section>
 
