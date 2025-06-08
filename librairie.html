@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque TurboDrive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background-color: #222222;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .header .logo {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .header .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+        .header .nav-links a:hover {
+            color: #e94560;
+        }
+        .header .menu-icon {
+            display: none;
+            font-size: 1.8em;
+            cursor: pointer;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex-grow: 1;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #2a2a2a;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+        .modal-close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .modal-close-button:hover,
+        .modal-close-button:focus {
+            color: #e94560;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        footer {
+            background-color: #111111;
+            color: #cccccc;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.9em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        footer a:hover {
+            color: #e94560;
+        }
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            .header .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: #222222;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+            }
+            .header .nav-links.active {
+                display: flex;
+            }
+            .header .nav-links a {
+                margin: 0;
+                padding: 15px 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                text-align: left;
+            }
+            .header .menu-icon {
+                display: block;
+            }
+            .container {
+                margin-top: 20px;
+                padding: 0 15px;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+    <header class="header">
+        <a href="index.html" class="logo">TurboDrive</a>
+        <nav class="nav-links" id="navLinks">
+            <a href="librairie.html">LIBRAIRIE</a>
+        </nav>
+        <div class="menu-icon" id="menuIcon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <h1 class="text-4xl font-extrabold text-center text-red-500 mb-8">Bibliothèque TurboDrive</h1>
+        
+        <div id="loginSection" class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold text-center text-blue-400 mb-6" id="loginHeader">Connexion Administrateur</h2>
+            <div id="loginForm" class="space-y-4">
+                <div>
+                    <label for="adminEmail" class="block text-gray-300 text-sm font-bold mb-2">Email:</label>
+                    <input type="email" id="adminEmail" class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500" placeholder="admin@example.com">
+                </div>
+                <div>
+                    <label for="adminPassword" class="block text-gray-300 text-sm font-bold mb-2">Mot de passe:</label>
+                    <input type="password" id="adminPassword" class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500" placeholder="Votre mot de passe">
+                </div>
+                <button id="adminLoginButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full">Se connecter</button>
+            </div>
+            <button id="adminLogoutButton" class="hidden bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full mt-4">Se déconnecter</button>
+        </div>
+
+        <div id="adminSection" class="hidden bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold text-center text-blue-400 mb-6">Ajouter une Nouvelle Photo (Admin)</h2>
+            <p class="text-sm text-gray-400 text-center mb-4">Votre ID utilisateur : <span id="currentUserId" class="font-bold text-yellow-300 break-all"></span></p>
+            <p class="text-sm text-gray-400 text-center mb-4">Pour que cet utilisateur soit admin, assurez-vous que son ID est ajouté comme document vide dans la collection `artifacts/{__app_id}/public/data/admins` dans Firebase Firestore.</p>
+            <div class="space-y-4">
+                <div>
+                    <label for="imageUrl" class="block text-gray-300 text-sm font-bold mb-2">URL de l'image:</label>
+                    <input type="url" id="imageUrl" class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500" placeholder="https://example.com/image.jpg" required>
+                </div>
+                <div>
+                    <label for="imageDescription" class="block text-gray-300 text-sm font-bold mb-2">Description:</label>
+                    <input type="text" id="imageDescription" class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500" placeholder="Une brève description de l'image" required>
+                </div>
+                <button id="addPhotoButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full">Ajouter la Photo</button>
+            </div>
+        </div>
+
+        <h2 class="text-3xl font-semibold text-center text-green-400 mb-6">Galerie de Photos</h2>
+        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <p id="loadingGallery" class="col-span-full text-center text-gray-400">Chargement des photos...</p>
+        </div>
+    </main>
+
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-button" id="closeModalButton">&times;</span>
+            <p id="modalMessage" class="text-lg font-semibold"></p>
+            <button id="modalOkButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-lg shadow-md transition duration-300">OK</button>
+        </div>
+    </div>
+
+    <footer class="footer mt-auto">
+        <p>© 2025 TurboDrive. Tous droits réservés. <a href="#">Politique de confidentialité</a></p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
+        import { getFirestore, collection, doc, onSnapshot, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+
+        // Votre configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_232uSttzKjF1CZg7eqngYtIGtX4DY3Q",
+            authDomain: "turbodrive-login-admin.firebaseapp.com",
+            projectId: "turbodrive-login-admin",
+            storageBucket: "turbodrive-login-admin.firebasestorage.app",
+            messagingSenderId: "637662080654",
+            appId: "1:637662080654:web:775632061b4ee0b653e3df",
+            measurementId: "G-RSSBS54025"
+        };
+
+        // L'ID de l'application est maintenant tiré de firebaseConfig
+        const appId = firebaseConfig.appId.split(':')[1]; // Extrait l'ID numérique de l'appId Firebase
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth;
+        let currentUserId = null;
+        let isAdmin = false;
+        let isEmailAuthenticated = false;
+
+        const loginSection = document.getElementById('loginSection');
+        const loginHeader = document.getElementById('loginHeader');
+        const loginForm = document.getElementById('loginForm');
+        const adminEmailInput = document.getElementById('adminEmail');
+        const adminPasswordInput = document.getElementById('adminPassword');
+        const adminLoginButton = document.getElementById('adminLoginButton');
+        const adminLogoutButton = document.getElementById('adminLogoutButton');
+
+        const adminSection = document.getElementById('adminSection');
+        const currentUserIdSpan = document.getElementById('currentUserId');
+        const imageUrlInput = document.getElementById('imageUrl');
+        const imageDescriptionInput = document.getElementById('imageDescription');
+        const addPhotoButton = document.getElementById('addPhotoButton');
+        const gallery = document.getElementById('gallery');
+        const loadingGallery = document.getElementById('loadingGallery');
+        const messageModal = document.getElementById('messageModal');
+        const modalMessage = document.getElementById('modalMessage');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const modalOkButton = document.getElementById('modalOkButton');
+
+        function showModal(message) {
+            modalMessage.textContent = message;
+            messageModal.style.display = 'flex';
+        }
+
+        function hideModal() {
+            messageModal.style.display = 'none';
+        }
+
+        closeModalButton.addEventListener('click', hideModal);
+        modalOkButton.addEventListener('click', hideModal);
+
+        const initFirebase = async () => {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        currentUserId = user.uid;
+                        currentUserIdSpan.textContent = currentUserId;
+                        // Check if the user is authenticated via email/password
+                        isEmailAuthenticated = user.providerData.some(provider => provider.providerId === 'password');
+                        
+                        await checkAdminStatus();
+                        updateAdminUI();
+                        setupRealtimePhotosListener();
+                    } else {
+                        // User is logged out or not yet authenticated. Attempt anonymous login.
+                        currentUserId = null;
+                        currentUserIdSpan.textContent = "Non connecté";
+                        isAdmin = false;
+                        isEmailAuthenticated = false;
+                        updateAdminUI(); // Hide admin UI if no user
+                        loadingGallery.textContent = "Chargement de la galerie...";
+                        try {
+                            if (initialAuthToken) {
+                                // If a custom token is provided (e.g., from Canvas environment), use it
+                                await signInWithCustomToken(auth, initialAuthToken);
+                            } else {
+                                // Otherwise, sign in anonymously to allow viewing public content
+                                await signInAnonymously(auth);
+                            }
+                        } catch (error) {
+                            console.error("Erreur de connexion Firebase (anonyme/jeton):", error);
+                            showModal("Impossible de se connecter à Firebase. Vérifiez votre configuration.");
+                            loadingGallery.textContent = "Erreur de connexion à la base de données.";
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error("Erreur d'initialisation de Firebase:", error);
+                showModal("Erreur critique: Firebase n'a pas pu être initialisé. Vérifiez votre configuration.");
+                loadingGallery.textContent = "Erreur critique de la base de données.";
+            }
+        };
+
+        const checkAdminStatus = async () => {
+            if (!currentUserId) {
+                isAdmin = false;
+                return;
+            }
+            try {
+                // Check if the current user's UID exists in the 'admins' collection
+                const adminDocRef = doc(db, `artifacts/${appId}/public/data/admins`, currentUserId);
+                const adminDocSnap = await getDoc(adminDocRef);
+                isAdmin = adminDocSnap.exists();
+            } catch (error) {
+                console.error("Erreur lors de la vérification du statut d'administrateur:", error);
+                isAdmin = false;
+                showModal("Erreur lors de la vérification des permissions.");
+            }
+        };
+
+        const updateAdminUI = () => {
+            if (isEmailAuthenticated) { // User is logged in via email/password
+                loginForm.classList.add('hidden'); // Hide login form
+                adminLoginButton.classList.add('hidden'); // Hide login button
+                adminLogoutButton.classList.remove('hidden'); // Show logout button
+                if (auth.currentUser && auth.currentUser.email) {
+                    loginHeader.textContent = `Connecté en tant que: ${auth.currentUser.email}`; // Show logged in email
+                } else {
+                    loginHeader.textContent = "Connecté (Email/Mdp)";
+                }
+                
+
+                if (isAdmin) { // If also an admin
+                    adminSection.classList.remove('hidden');
+                } else {
+                    adminSection.classList.add('hidden');
+                    showModal("Vous êtes connecté, mais n'êtes pas un administrateur.");
+                }
+            } else { // User is not logged in via email/password (anonymous or not logged in)
+                loginForm.classList.remove('hidden'); // Show login form
+                adminLoginButton.classList.remove('hidden'); // Show login button
+                adminLogoutButton.classList.add('hidden'); // Hide logout button
+                adminSection.classList.add('hidden'); // Hide admin section
+                loginHeader.textContent = "Connexion Administrateur"; // Reset header
+                adminEmailInput.value = ''; // Clear form on logout
+                adminPasswordInput.value = '';
+            }
+        };
+
+        const setupRealtimePhotosListener = () => {
+            const photosCollectionRef = collection(db, `artifacts/${appId}/public/data/photos`);
+            onSnapshot(photosCollectionRef, (snapshot) => {
+                gallery.innerHTML = '';
+                if (snapshot.empty) {
+                    gallery.innerHTML = '<p class="col-span-full text-center text-gray-400">Aucune photo dans la bibliothèque pour le moment.</p>';
+                } else {
+                    snapshot.forEach((doc) => {
+                        const photo = doc.data();
+                        const photoElement = document.createElement('div');
+                        photoElement.classList.add('bg-gray-800', 'rounded-lg', 'shadow-md', 'overflow-hidden', 'transform', 'transition', 'duration-300', 'hover:scale-105');
+                        photoElement.innerHTML = `
+                            <img src="${photo.imageUrl}" alt="${photo.description}" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x300/333333/ffffff?text=Image+introuvable';" loading="lazy">
+                            <div class="p-4">
+                                <p class="text-gray-300 text-sm">${photo.description}</p>
+                            </div>
+                        `;
+                        gallery.appendChild(photoElement);
+                    });
+                }
+                loadingGallery.style.display = 'none';
+            }, (error) => {
+                console.error("Erreur de lecture en temps réel des photos:", error);
+                gallery.innerHTML = '<p class="col-span-full text-center text-red-500">Erreur de chargement de la galerie. Veuillez réessayer.</p>';
+                loadingGallery.style.display = 'none';
+                showModal("Erreur lors du chargement de la galerie. Veuillez vérifier votre connexion.");
+            });
+        };
+
+        adminLoginButton.addEventListener('click', async () => {
+            const email = adminEmailInput.value.trim();
+            const password = adminPasswordInput.value.trim();
+
+            if (!email || !password) {
+                showModal("Veuillez entrer l'email et le mot de passe de l'administrateur.");
+                return;
+            }
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showModal("Connexion réussie !");
+            } catch (error) {
+                console.error("Erreur de connexion administrateur:", error);
+                let errorMessage = "Échec de la connexion. Vérifiez vos identifiants.";
+                if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                    errorMessage = "Email ou mot de passe incorrect.";
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = "Format d'email invalide.";
+                }
+                showModal(errorMessage);
+            }
+        });
+
+        adminLogoutButton.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                showModal("Déconnexion réussie !");
+            } catch (error) {
+                console.error("Erreur de déconnexion:", error);
+                showModal("Erreur lors de la déconnexion. Veuillez réessayer.");
+            }
+        });
+
+        addPhotoButton.addEventListener('click', async () => {
+            if (!isAdmin || !isEmailAuthenticated) {
+                showModal("Vous n'êtes pas connecté en tant qu'administrateur autorisé pour ajouter des photos.");
+                return;
+            }
+
+            const imageUrl = imageUrlInput.value.trim();
+            const description = imageDescriptionInput.value.trim();
+
+            if (!imageUrl || !description) {
+                showModal("Veuillez remplir tous les champs (URL et description de l'image).");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, `artifacts/${appId}/public/data/photos`), {
+                    imageUrl: imageUrl,
+                    description: description,
+                    timestamp: new Date()
+                });
+                imageUrlInput.value = '';
+                imageDescriptionInput.value = '';
+                showModal("Photo ajoutée avec succès !");
+            } catch (error) {
+                console.error("Erreur lors de l'ajout de la photo:", error);
+                showModal("Erreur lors de l'ajout de la photo. Vérifiez vos permissions ou l'URL.");
+            }
+        });
+
+        document.getElementById('menuIcon').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        initFirebase();
+    </script>
+</body>
+</html>
