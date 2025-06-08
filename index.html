@@ -15,24 +15,23 @@
             --dark-bg-secondary: #222222;
             --text-light: #ffffff;
             --text-dark-grey: #cccccc;
-            --accent-red: #e94560; /* Used for hover on nav and titles */
-            --accent-blue: #007bff; /* Used for footer links */
-            --accent-yellow: #ffcc00; /* Used for reflex game button and icon */
+            --accent-red: #e94560;
+            --accent-blue: #007bff;
+            --accent-yellow: #ffcc00;
             --border-color: rgba(255, 255, 255, 0.1);
             --shadow-color: rgba(0, 0, 0, 0.5);
 
-            /* Specific button colors */
             --button-yellow-start: #ffcc00;
             --button-yellow-end: #e6b800;
-            --button-red-start: #e94560; /* Match accent-red */
-            --button-red-end: #d1304b; /* Slightly darker red */
+            --button-red-start: #e94560;
+            --button-red-end: #d1304b;
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #000000; /* Solid black background */
+            background-color: #000000;
             color: var(--text-light);
             line-height: 1.6;
         }
@@ -190,25 +189,25 @@
             margin-bottom: 30px;
         }
 
-        .games-buttons-container { /* New flex container for game boxes */
+        .games-buttons-container {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 30px; /* Space between game boxes */
+            gap: 30px;
             margin-top: 40px;
         }
 
         .reflex-box,
-        .game-box { /* Apply common styling to both game boxes */
+        .game-box {
             background-color: var(--dark-bg-secondary);
             border-radius: 15px;
             padding: 30px;
-            max-width: 350px; /* Adjust max-width for multiple boxes */
-            flex: 1 1 auto; /* Allow boxes to grow/shrink */
+            max-width: 350px;
+            flex: 1 1 auto;
             box-shadow: 0 5px 15px var(--shadow-color);
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Push button to bottom if content varies */
+            justify-content: space-between;
             align-items: center;
             text-align: center;
         }
@@ -223,12 +222,12 @@
         .reflex-box .icon-placeholder,
         .game-box .icon-placeholder {
             font-size: 4em;
-            color: var(--accent-yellow); /* Default icon color */
+            color: var(--accent-yellow);
             margin-bottom: 20px;
         }
 
         .game-box .icon-placeholder {
-            color: var(--accent-red); /* Icon color for quiz */
+            color: var(--accent-red);
         }
 
         .button {
@@ -238,17 +237,17 @@
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s ease;
-            color: var(--dark-bg-primary); /* Text color for buttons */
-            margin-top: auto; /* Push button to the bottom */
+            color: var(--dark-bg-primary);
+            margin-top: auto;
         }
 
-        .button-yellow { /* Style for reflex button */
+        .button-yellow {
             background: linear-gradient(to right, var(--button-yellow-start), var(--button-yellow-end));
         }
 
-        .button-red { /* Style for quiz button */
+        .button-red {
             background: linear-gradient(to right, var(--button-red-start), var(--button-red-end));
-            color: var(--text-light); /* White text for red button */
+            color: var(--text-light);
         }
 
         .button:hover {
@@ -256,13 +255,12 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
-        /* Specific hover effects for buttons */
         .button-yellow:hover {
-            background: linear-gradient(to right, #e6b800, #cc9900); /* Slightly darker yellow on hover */
+            background: linear-gradient(to right, #e6b800, #cc9900);
         }
 
         .button-red:hover {
-            background: linear-gradient(to right, #d1304b, #b31d34); /* Slightly darker red on hover */
+            background: linear-gradient(to right, #d1304b, #b31d34);
         }
 
 
@@ -390,12 +388,12 @@
                 height: 350px;
             }
             .games-buttons-container {
-                flex-direction: column; /* Stack buttons vertically on smaller screens */
+                flex-direction: column;
                 align-items: center;
             }
             .reflex-box,
             .game-box {
-                max-width: 90%; /* Allow boxes to take more width when stacked */
+                max-width: 90%;
             }
         }
 
@@ -524,9 +522,7 @@
     <header class="header">
         <a href="#" class="logo">TurboDrive</a>
         <nav class="nav-links" id="navLinks">
-            <a href="#">VIDEO</a>
-            <a href="#">JEUX</a>
-            <a href="#">BOUTIQUE</a>
+            <a href="librairie.html">LIBRAIRIE</a>
         </nav>
         <div class="menu-icon" id="menuIcon">
             <i class="fas fa-bars"></i>
@@ -553,7 +549,7 @@
     <section class="section games-section">
         <h2 class="section-title">JEUX</h2>
         <div class="video-embed">
-            <iframe src="https://www.youtube.com/embed/oRIWvxeZTgk?si=A8xeZMuYH7I_nmOP" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/oRIWvxeZTgk?si=A8xeZMuYH1I_nmOP" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
         <div class="games-buttons-container">
             <div class="reflex-box">
