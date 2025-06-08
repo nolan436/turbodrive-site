@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bibliothèque TurboDrive</title>
+    <title>Bibliothèque TurboDrive - Indisponible</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,6 +17,9 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
         .header {
             background-color: #222222;
@@ -25,6 +28,10 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
         .header .logo {
             font-size: 1.8em;
@@ -48,66 +55,39 @@
             font-size: 1.8em;
             cursor: pointer;
         }
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            flex-grow: 1;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
+        .message-container {
             background-color: #2a2a2a;
-            margin: auto;
-            padding: 30px;
+            padding: 40px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
             width: 90%;
-            max-width: 500px;
-            text-align: center;
-            position: relative;
         }
-        .modal-close-button {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .modal-close-button:hover,
-        .modal-close-button:focus {
+        .message-container h1 {
+            font-size: 2.5em;
             color: #e94560;
-            text-decoration: none;
-            cursor: pointer;
+            margin-bottom: 20px;
         }
-        footer {
-            background-color: #111111;
+        .message-container p {
+            font-size: 1.2em;
             color: #cccccc;
-            padding: 30px 20px;
-            text-align: center;
-            font-size: 0.9em;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
         }
-        footer a {
-            color: #007bff;
+        .home-button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
             text-decoration: none;
-            transition: color 0.2s ease;
+            display: inline-block;
         }
-        footer a:hover {
-            color: #e94560;
+        .home-button:hover {
+            background-color: #0056b3;
         }
         @media (max-width: 768px) {
             .header {
@@ -128,28 +108,24 @@
             .header .nav-links.active {
                 display: flex;
             }
-            .header .nav-links a {
-                margin: 0;
-                padding: 15px 20px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                text-align: left;
-            }
             .header .menu-icon {
                 display: block;
             }
-            .container {
-                margin-top: 20px;
-                padding: 0 15px;
-            }
-            .modal-content {
+            .message-container {
                 padding: 20px;
+            }
+            .message-container h1 {
+                font-size: 2em;
+            }
+            .message-container p {
+                font-size: 1em;
             }
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<body>
     <header class="header">
-        <a href="index.html" class="logo">TurboDrive">TurboDrive</a>
+        <a href="index.html" class="logo">TurboDrive</a>
         <nav class="nav-links" id="navLinks">
             <a href="librairie.html">LIBRAIRIE</a>
         </nav>
@@ -158,332 +134,23 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 flex-grow">
-        <h1 class="text-4xl font-extrabold text-center text-red-500 mb-8">Bibliothèque TurboDrive</h1>
-        
-        <div id="loginSection" class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
-            <h2 class="text-2xl font-semibold text-center text-blue-400 mb-6" id="loginHeader">Connexion Administrateur</h2>
-            <div id="loginForm" class="space-y-4">
-                <p class="text-gray-400 text-center text-sm mb-4">Connectez-vous avec un compte admin Firebase pour ajouter des photos.</p>
-                <!-- Removed Email/Password login fields -->
-                <button id="googleLoginButton" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full flex items-center justify-center">
-                    <i class="fab fa-google mr-2"></i> Se connecter avec Google
-                </button>
-                <button id="githubLoginButton" class="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full flex items-center justify-center">
-                    <i class="fab fa-github mr-2"></i> Se connecter avec GitHub
-                </button>
-            </div>
-            <button id="adminLogoutButton" class="hidden bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full mt-4">Se déconnecter</button>
-        </div>
-
-        <div id="adminSection" class="hidden bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
-            <h2 class="text-2xl font-semibold text-center text-blue-400 mb-6">Ajouter une Nouvelle Photo (Admin)</h2>
-            <p class="text-sm text-gray-400 text-center mb-4">Votre ID utilisateur : <span id="currentUserId" class="font-bold text-yellow-300 break-all"></span></p>
-            <p class="text-sm text-gray-400 text-center mb-4">**IMPORTANT** : Pour que cet utilisateur soit admin et puisse ajouter des photos, **son UID** (l'ID affiché ci-dessus) **doit être ajouté comme document vide** dans la collection `artifacts/turbodrive-login-admin/public/data/admins` dans Firebase Firestore. L'affichage de ce panneau est une indication client, mais les permissions d'écriture sont gérées par le serveur.</p>
-            <div class="space-y-4">
-                <div>
-                    <label for="imageUrl" class="block text-gray-300 text-sm font-bold mb-2">URL de l'image:</label>
-                    <input type="url" id="imageUrl" class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500" placeholder="https://example.com/image.jpg" required>
-                </div>
-                <div>
-                    <label for="imageDescription" class="block text-gray-300 text-sm font-bold mb-2">Description:</label>
-                    <input type="text" id="imageDescription" class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500" placeholder="Une brève description de l'image" required>
-                </div>
-                <button id="addPhotoButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full">Ajouter la Photo</button>
-            </div>
-        </div>
-
-        <h2 class="text-3xl font-semibold text-center text-green-400 mb-6">Galerie de Photos</h2>
-        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <p id="loadingGallery" class="col-span-full text-center text-gray-400">Chargement des photos...</p>
-        </div>
-    </main>
-
-    <div id="messageModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close-button" id="closeModalButton">&times;</span>
-            <p id="modalMessage" class="text-lg font-semibold"></p>
-            <button id="modalOkButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-lg shadow-md transition duration-300">OK</button>
-        </div>
+    <div class="message-container">
+        <h1>Bientôt Disponible !</h1>
+        <p>Notre bibliothèque de photos est actuellement en cours de développement. Revenez bientôt pour découvrir une collection époustouflante d'images du sport automobile !</p>
+        <a href="index.html" class="home-button">Retour à l'accueil</a>
     </div>
 
-    <footer class="footer mt-auto">
-        <p>© 2025 TurboDrive. Tous droits réservés. <a href="#">Politique de confidentialité</a></p>
-    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuIcon = document.getElementById('menuIcon');
+            const navLinks = document.getElementById('navLinks');
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, signOut, onAuthStateChanged, signInWithPopup, GithubAuthProvider, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
-        import { getFirestore, collection, doc, onSnapshot, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyB_232uSttzKjF1CZg7eqngYtIGtX4DY3Q",
-            authDomain: "turbodrive-login-admin.firebaseapp.com",
-            projectId: "turbodrive-login-admin",
-            storageBucket: "turbodrive-login-admin.firebasestorage.app",
-            messagingSenderId: "637662080654",
-            appId: "1:637662080654:web:775632061b4ee0b653e3df",
-            measurementId: "G-RSSBS54025"
-        };
-
-        const appId = firebaseConfig.projectId;
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        // REMPLACEZ CECI PAR L'ADRESSE EMAIL DE VOTRE COMPTE GOOGLE QUI EST PROPRIÉTAIRE DU PROJET FIREBASE
-        const OWNER_EMAIL = "VOTRE_EMAIL_DU_PROPRIETAIRE_FIREBASE@example.com"; // <-- À REMPLACER
-
-        let db, auth;
-        let currentUserId = null;
-        let isAdmin = false;
-        let authProvider = 'anonymous'; // Tracks how the user is authenticated (anonymous, github, google)
-
-        const loginSection = document.getElementById('loginSection');
-        const loginHeader = document.getElementById('loginHeader');
-        const loginForm = document.getElementById('loginForm');
-        // Removed adminEmailInput, adminPasswordInput, adminLoginButton
-        const githubLoginButton = document.getElementById('githubLoginButton');
-        const googleLoginButton = document.getElementById('googleLoginButton'); // New Google button
-        const adminLogoutButton = document.getElementById('adminLogoutButton');
-
-        const adminSection = document.getElementById('adminSection');
-        const currentUserIdSpan = document.getElementById('currentUserId');
-        const imageUrlInput = document.getElementById('imageUrl');
-        const imageDescriptionInput = document.getElementById('imageDescription');
-        const addPhotoButton = document.getElementById('addPhotoButton');
-        const gallery = document.getElementById('gallery');
-        const loadingGallery = document.getElementById('loadingGallery');
-        const messageModal = document.getElementById('messageModal');
-        const modalMessage = document.getElementById('modalMessage');
-        const closeModalButton = document.getElementById('closeModalButton');
-        const modalOkButton = document.getElementById('modalOkButton');
-
-        function showModal(message) {
-            modalMessage.textContent = message;
-            messageModal.style.display = 'flex';
-        }
-
-        function hideModal() {
-            messageModal.style.display = 'none';
-        }
-
-        closeModalButton.addEventListener('click', hideModal);
-        modalOkButton.addEventListener('click', hideModal);
-
-        const initFirebase = async () => {
-            try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-
-                onAuthStateChanged(auth, async (user) => {
-                    if (user) {
-                        currentUserId = user.uid;
-                        currentUserIdSpan.textContent = currentUserId;
-                        
-                        const providerId = user.providerData[0]?.providerId;
-                        if (providerId === 'github.com') {
-                            authProvider = 'github';
-                            loginHeader.textContent = `Connecté en tant que: ${user.displayName || user.email} (GitHub)`;
-                        } else if (providerId === 'google.com') {
-                            authProvider = 'google';
-                            loginHeader.textContent = `Connecté en tant que: ${user.displayName || user.email} (Google)`;
-                        } else {
-                            authProvider = 'anonymous';
-                            loginHeader.textContent = "Connecté anonymement";
-                        }
-                        
-                        await checkAdminStatus(user);
-                        updateAdminUI();
-                        setupRealtimePhotosListener();
-                    } else {
-                        currentUserId = null;
-                        currentUserIdSpan.textContent = "Non connecté";
-                        isAdmin = false;
-                        authProvider = 'anonymous';
-                        loginHeader.textContent = "Connexion Administrateur";
-                        updateAdminUI(); // Update UI to show login form
-                        loadingGallery.textContent = "Chargement de la galerie...";
-                        try {
-                            if (initialAuthToken) {
-                                await signInWithCustomToken(auth, initialAuthToken);
-                            } else {
-                                await signInAnonymously(auth);
-                            }
-                        } catch (error) {
-                            console.error("Erreur de connexion Firebase (anonyme/jeton):", error);
-                            showModal("Impossible de se connecter à Firebase avec l'utilisateur actuel. Veuillez vérifier votre connexion ou réessayez.");
-                            loadingGallery.textContent = "Erreur de connexion à la base de données.";
-                        }
-                    }
+            if (menuIcon && navLinks) {
+                menuIcon.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
                 });
-            } catch (error) {
-                console.error("Erreur d'initialisation de Firebase:", error);
-                showModal("Erreur critique: Firebase n'a pas pu être initialisé. Vérifiez votre configuration Firebase.");
-                loadingGallery.textContent = "Erreur critique de la base de données.";
-            }
-        };
-
-        const checkAdminStatus = async (user) => {
-            if (!user) {
-                isAdmin = false;
-                return;
-            }
-            try {
-                const adminDocRef = doc(db, `artifacts/${appId}/public/data/admins`, user.uid);
-                const adminDocSnap = await getDoc(adminDocRef);
-                isAdmin = adminDocSnap.exists();
-
-                // Client-side override for specific GitHub/Google users for immediate UI display
-                if (authProvider === 'github' && user.displayName === 'nolan436') {
-                    if (!isAdmin) {
-                        showModal(`Bonjour Nolan436 ! Pour que vous puissiez ajouter des photos, veuillez copier votre UID (${user.uid}) et l'ajouter comme document vide dans la collection "admins" de votre base de données Firestore.`);
-                    }
-                    isAdmin = true; // Force client-side isAdmin for nolan436 for immediate UI
-                } else if (authProvider === 'google' && user.email === OWNER_EMAIL) {
-                    if (!isAdmin) {
-                        showModal(`Bonjour propriétaire du projet ! Pour que vous puissiez ajouter des photos, veuillez copier votre UID (${user.uid}) et l'ajouter comme document vide dans la collection "admins" de votre base de données Firestore. Ceci est une étape unique pour les permissions d'écriture.`);
-                    }
-                    isAdmin = true; // Force client-side isAdmin for the owner for immediate UI
-                } else if (!isAdmin && authProvider !== 'anonymous') {
-                    showModal("Vous êtes connecté, mais n'êtes pas un administrateur. Assurez-vous que votre ID utilisateur est bien ajouté dans la collection 'admins' de Firestore.");
-                }
-            } catch (error) {
-                console.error("Erreur lors de la vérification du statut d'administrateur:", error);
-                isAdmin = false;
-                showModal("Erreur lors de la vérification des permissions.");
-            }
-        };
-
-        const updateAdminUI = () => {
-            if (currentUserId && authProvider !== 'anonymous') { // User is authenticated (GitHub or Google)
-                loginForm.classList.add('hidden'); // Hide login form
-                githubLoginButton.classList.add('hidden');
-                googleLoginButton.classList.add('hidden');
-                loginSection.classList.remove('hidden'); // Ensure loginSection is visible for logout button
-                adminLogoutButton.classList.remove('hidden'); // Show logout button
-                
-                if (isAdmin) {
-                    adminSection.classList.remove('hidden');
-                } else {
-                    adminSection.classList.add('hidden');
-                }
-            } else { // No user is authenticated with a social provider (anonymous or logged out)
-                loginForm.classList.remove('hidden'); // Show login form
-                githubLoginButton.classList.remove('hidden');
-                googleLoginButton.classList.remove('hidden');
-                loginSection.classList.remove('hidden'); // Ensure loginSection is visible for login form
-                adminLogoutButton.classList.add('hidden');
-                adminSection.classList.add('hidden');
-            }
-        };
-
-        const setupRealtimePhotosListener = () => {
-            const photosCollectionRef = collection(db, `artifacts/${appId}/public/data/photos`);
-            onSnapshot(photosCollectionRef, (snapshot) => {
-                gallery.innerHTML = '';
-                if (snapshot.empty) {
-                    gallery.innerHTML = '<p class="col-span-full text-center text-gray-400">Aucune photo dans la bibliothèque pour le moment.</p>';
-                } else {
-                    snapshot.forEach((doc) => {
-                        const photo = doc.data();
-                        const photoElement = document.createElement('div');
-                        photoElement.classList.add('bg-gray-800', 'rounded-lg', 'shadow-md', 'overflow-hidden', 'transform', 'transition', 'duration-300', 'hover:scale-105');
-                        photoElement.innerHTML = `
-                            <img src="${photo.imageUrl}" alt="${photo.description}" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x300/333333/ffffff?text=Image+introuvable';" loading="lazy">
-                            <div class="p-4">
-                                <p class="text-gray-300 text-sm">${photo.description}</p>
-                            </div>
-                        `;
-                        gallery.appendChild(photoElement);
-                    });
-                }
-                loadingGallery.style.display = 'none';
-            }, (error) => {
-                console.error("Erreur de lecture en temps réel des photos:", error);
-                gallery.innerHTML = '<p class="col-span-full text-center text-red-500">Erreur de chargement de la galerie. Veuillez réessayer.</p>';
-                loadingGallery.style.display = 'none';
-                showModal("Erreur lors du chargement de la galerie. Veuillez vérifier votre connexion.");
-            });
-        };
-
-        googleLoginButton.addEventListener('click', async () => {
-            try {
-                const provider = new GoogleAuthProvider();
-                await signInWithPopup(auth, provider);
-                showModal("Connexion Google réussie !");
-            } catch (error) {
-                console.error("Erreur de connexion Google:", error);
-                let errorMessage = "Échec de la connexion Google. Veuillez réessayer.";
-                if (error.code === 'auth/popup-closed-by-user') {
-                    errorMessage = "Connexion annulée par l'utilisateur.";
-                } else if (error.code === 'auth/cancelled-popup-request') {
-                    errorMessage = "Demande de pop-up annulée. Veuillez réessayer.";
-                }
-                showModal(errorMessage);
             }
         });
-
-        githubLoginButton.addEventListener('click', async () => {
-            try {
-                const provider = new GithubAuthProvider();
-                await signInWithPopup(auth, provider);
-                showModal("Connexion GitHub réussie !");
-            } catch (error) {
-                console.error("Erreur de connexion GitHub:", error);
-                let errorMessage = "Échec de la connexion GitHub. Veuillez réessayer.";
-                if (error.code === 'auth/popup-closed-by-user') {
-                    errorMessage = "Connexion annulée par l'utilisateur.";
-                } else if (error.code === 'auth/cancelled-popup-request') {
-                    errorMessage = "Demande de pop-up annulée. Veuillez réessayer.";
-                }
-                showModal(errorMessage);
-            }
-        });
-
-        adminLogoutButton.addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-                showModal("Déconnexion réussie !");
-            } catch (error) {
-                console.error("Erreur de déconnexion:", error);
-                showModal("Erreur lors de la déconnexion. Veuillez réessayer.");
-            }
-        });
-
-        addPhotoButton.addEventListener('click', async () => {
-            if (!isAdmin) {
-                showModal("Vous n'êtes pas connecté en tant qu'administrateur autorisé pour ajouter des photos. Votre UID n'est pas dans la collection 'admins' de Firestore.");
-                return;
-            }
-
-            const imageUrl = imageUrlInput.value.trim();
-            const description = imageDescriptionInput.value.trim();
-
-            if (!imageUrl || !description) {
-                showModal("Veuillez remplir tous les champs (URL et description de l'image).");
-                return;
-            }
-
-            try {
-                await addDoc(collection(db, `artifacts/${appId}/public/data/photos`), {
-                    imageUrl: imageUrl,
-                    description: description,
-                    timestamp: new Date()
-                });
-                imageUrlInput.value = '';
-                imageDescriptionInput.value = '';
-                showModal("Photo ajoutée avec succès !");
-            } catch (error) {
-                console.error("Erreur lors de l'ajout de la photo:", error);
-                showModal("Erreur lors de l'ajout de la photo. Vérifiez vos permissions ou l'URL.");
-            }
-        });
-
-        document.getElementById('menuIcon').addEventListener('click', () => {
-            document.getElementById('navLinks').classList.toggle('active');
-        });
-
-        initFirebase();
     </script>
 </body>
 </html>
