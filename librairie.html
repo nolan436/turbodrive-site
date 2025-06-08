@@ -149,7 +149,7 @@
 </head>
 <body class="bg-gray-900 text-white flex flex-col min-h-screen">
     <header class="header">
-        <a href="index.html" class="logo">TurboDrive</a>
+        <a href="index.html" class="logo">TurboDrive">TurboDrive</a>
         <nav class="nav-links" id="navLinks">
             <a href="librairie.html">LIBRAIRIE</a>
         </nav>
@@ -165,15 +165,10 @@
             <h2 class="text-2xl font-semibold text-center text-blue-400 mb-6" id="loginHeader">Connexion Administrateur</h2>
             <div id="loginForm" class="space-y-4">
                 <p class="text-gray-400 text-center text-sm mb-4">Connectez-vous avec un compte admin Firebase pour ajouter des photos.</p>
-                <div>
-                    <label for="adminEmail" class="block text-gray-300 text-sm font-bold mb-2">Email:</label>
-                    <input type="email" id="adminEmail" class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500" placeholder="admin@example.com">
-                </div>
-                <div>
-                    <label for="adminPassword" class="block text-gray-300 text-sm font-bold mb-2">Mot de passe:</label>
-                    <input type="password" id="adminPassword" class="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500" placeholder="Votre mot de passe">
-                </div>
-                <button id="adminLoginButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full">Se connecter avec Email</button>
+                <!-- Removed Email/Password login fields -->
+                <button id="googleLoginButton" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full flex items-center justify-center">
+                    <i class="fab fa-google mr-2"></i> Se connecter avec Google
+                </button>
                 <button id="githubLoginButton" class="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 w-full flex items-center justify-center">
                     <i class="fab fa-github mr-2"></i> Se connecter avec GitHub
                 </button>
@@ -184,7 +179,7 @@
         <div id="adminSection" class="hidden bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
             <h2 class="text-2xl font-semibold text-center text-blue-400 mb-6">Ajouter une Nouvelle Photo (Admin)</h2>
             <p class="text-sm text-gray-400 text-center mb-4">Votre ID utilisateur : <span id="currentUserId" class="font-bold text-yellow-300 break-all"></span></p>
-            <p class="text-sm text-gray-400 text-center mb-4">Pour que cet utilisateur soit admin, assurez-vous que son ID est ajouté comme document vide dans la collection `artifacts/{__app_id}/public/data/admins` dans Firebase Firestore.</p>
+            <p class="text-sm text-gray-400 text-center mb-4">**IMPORTANT** : Pour que cet utilisateur soit admin et puisse ajouter des photos, **son UID** (l'ID affiché ci-dessus) **doit être ajouté comme document vide** dans la collection `artifacts/turbodrive-login-admin/public/data/admins` dans Firebase Firestore. L'affichage de ce panneau est une indication client, mais les permissions d'écriture sont gérées par le serveur.</p>
             <div class="space-y-4">
                 <div>
                     <label for="imageUrl" class="block text-gray-300 text-sm font-bold mb-2">URL de l'image:</label>
@@ -218,7 +213,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, signInWithEmailAndPassword, signOut, onAuthStateChanged, signInWithPopup, GithubAuthProvider } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, signOut, onAuthStateChanged, signInWithPopup, GithubAuthProvider, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
         import { getFirestore, collection, doc, onSnapshot, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -234,18 +229,20 @@
         const appId = firebaseConfig.projectId;
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
+        // REMPLACEZ CECI PAR L'ADRESSE EMAIL DE VOTRE COMPTE GOOGLE QUI EST PROPRIÉTAIRE DU PROJET FIREBASE
+        const OWNER_EMAIL = "VOTRE_EMAIL_DU_PROPRIETAIRE_FIREBASE@example.com"; // <-- À REMPLACER
+
         let db, auth;
         let currentUserId = null;
         let isAdmin = false;
-        let authProvider = 'anonymous'; // Tracks how the user is authenticated (anonymous, email, github)
+        let authProvider = 'anonymous'; // Tracks how the user is authenticated (anonymous, github, google)
 
         const loginSection = document.getElementById('loginSection');
         const loginHeader = document.getElementById('loginHeader');
         const loginForm = document.getElementById('loginForm');
-        const adminEmailInput = document.getElementById('adminEmail');
-        const adminPasswordInput = document.getElementById('adminPassword');
-        const adminLoginButton = document.getElementById('adminLoginButton');
-        const githubLoginButton = document.getElementById('githubLoginButton'); // New GitHub button
+        // Removed adminEmailInput, adminPasswordInput, adminLoginButton
+        const githubLoginButton = document.getElementById('githubLoginButton');
+        const googleLoginButton = document.getElementById('googleLoginButton'); // New Google button
         const adminLogoutButton = document.getElementById('adminLogoutButton');
 
         const adminSection = document.getElementById('adminSection');
@@ -283,25 +280,28 @@
                         currentUserId = user.uid;
                         currentUserIdSpan.textContent = currentUserId;
                         
-                        // Determine authentication provider
                         const providerId = user.providerData[0]?.providerId;
-                        if (providerId === 'password') {
-                            authProvider = 'email';
-                        } else if (providerId === 'github.com') {
+                        if (providerId === 'github.com') {
                             authProvider = 'github';
+                            loginHeader.textContent = `Connecté en tant que: ${user.displayName || user.email} (GitHub)`;
+                        } else if (providerId === 'google.com') {
+                            authProvider = 'google';
+                            loginHeader.textContent = `Connecté en tant que: ${user.displayName || user.email} (Google)`;
                         } else {
-                            authProvider = 'anonymous'; // Includes custom token or anonymous
+                            authProvider = 'anonymous';
+                            loginHeader.textContent = "Connecté anonymement";
                         }
                         
-                        await checkAdminStatus();
+                        await checkAdminStatus(user);
                         updateAdminUI();
                         setupRealtimePhotosListener();
                     } else {
                         currentUserId = null;
                         currentUserIdSpan.textContent = "Non connecté";
                         isAdmin = false;
-                        authProvider = 'anonymous'; // Reset to anonymous on logout/no user
-                        updateAdminUI();
+                        authProvider = 'anonymous';
+                        loginHeader.textContent = "Connexion Administrateur";
+                        updateAdminUI(); // Update UI to show login form
                         loadingGallery.textContent = "Chargement de la galerie...";
                         try {
                             if (initialAuthToken) {
@@ -323,15 +323,30 @@
             }
         };
 
-        const checkAdminStatus = async () => {
-            if (!currentUserId) {
+        const checkAdminStatus = async (user) => {
+            if (!user) {
                 isAdmin = false;
                 return;
             }
             try {
-                const adminDocRef = doc(db, `artifacts/${appId}/public/data/admins`, currentUserId);
+                const adminDocRef = doc(db, `artifacts/${appId}/public/data/admins`, user.uid);
                 const adminDocSnap = await getDoc(adminDocRef);
                 isAdmin = adminDocSnap.exists();
+
+                // Client-side override for specific GitHub/Google users for immediate UI display
+                if (authProvider === 'github' && user.displayName === 'nolan436') {
+                    if (!isAdmin) {
+                        showModal(`Bonjour Nolan436 ! Pour que vous puissiez ajouter des photos, veuillez copier votre UID (${user.uid}) et l'ajouter comme document vide dans la collection "admins" de votre base de données Firestore.`);
+                    }
+                    isAdmin = true; // Force client-side isAdmin for nolan436 for immediate UI
+                } else if (authProvider === 'google' && user.email === OWNER_EMAIL) {
+                    if (!isAdmin) {
+                        showModal(`Bonjour propriétaire du projet ! Pour que vous puissiez ajouter des photos, veuillez copier votre UID (${user.uid}) et l'ajouter comme document vide dans la collection "admins" de votre base de données Firestore. Ceci est une étape unique pour les permissions d'écriture.`);
+                    }
+                    isAdmin = true; // Force client-side isAdmin for the owner for immediate UI
+                } else if (!isAdmin && authProvider !== 'anonymous') {
+                    showModal("Vous êtes connecté, mais n'êtes pas un administrateur. Assurez-vous que votre ID utilisateur est bien ajouté dans la collection 'admins' de Firestore.");
+                }
             } catch (error) {
                 console.error("Erreur lors de la vérification du statut d'administrateur:", error);
                 isAdmin = false;
@@ -340,36 +355,25 @@
         };
 
         const updateAdminUI = () => {
-            if (authProvider === 'email' || authProvider === 'github') { // User is logged in via email/password or GitHub
+            if (currentUserId && authProvider !== 'anonymous') { // User is authenticated (GitHub or Google)
                 loginForm.classList.add('hidden'); // Hide login form
-                adminLoginButton.classList.add('hidden'); // Hide email login button
-                githubLoginButton.classList.add('hidden'); // Hide GitHub login button
+                githubLoginButton.classList.add('hidden');
+                googleLoginButton.classList.add('hidden');
+                loginSection.classList.remove('hidden'); // Ensure loginSection is visible for logout button
                 adminLogoutButton.classList.remove('hidden'); // Show logout button
                 
-                if (auth.currentUser && auth.currentUser.email) {
-                    loginHeader.textContent = `Connecté en tant que: ${auth.currentUser.email}`;
-                } else if (auth.currentUser && auth.currentUser.displayName) {
-                    loginHeader.textContent = `Connecté en tant que: ${auth.currentUser.displayName} (GitHub)`;
-                } else {
-                    loginHeader.textContent = "Connecté"; // Fallback for other providers or if no email/display name
-                }
-                
-
                 if (isAdmin) {
                     adminSection.classList.remove('hidden');
                 } else {
                     adminSection.classList.add('hidden');
-                    showModal("Vous êtes connecté, mais n'êtes pas un administrateur. Assurez-vous que votre ID utilisateur est bien ajouté dans la collection 'admins' de Firestore.");
                 }
-            } else { // User is anonymous or not logged in
+            } else { // No user is authenticated with a social provider (anonymous or logged out)
                 loginForm.classList.remove('hidden'); // Show login form
-                adminLoginButton.classList.remove('hidden'); // Show email login button
-                githubLoginButton.classList.remove('hidden'); // Show GitHub login button
-                adminLogoutButton.classList.add('hidden'); // Hide logout button
-                adminSection.classList.add('hidden'); // Hide admin section
-                loginHeader.textContent = "Connexion Administrateur"; // Reset header
-                adminEmailInput.value = ''; // Clear form on logout
-                adminPasswordInput.value = '';
+                githubLoginButton.classList.remove('hidden');
+                googleLoginButton.classList.remove('hidden');
+                loginSection.classList.remove('hidden'); // Ensure loginSection is visible for login form
+                adminLogoutButton.classList.add('hidden');
+                adminSection.classList.add('hidden');
             }
         };
 
@@ -402,25 +406,18 @@
             });
         };
 
-        adminLoginButton.addEventListener('click', async () => {
-            const email = adminEmailInput.value.trim();
-            const password = adminPasswordInput.value.trim();
-
-            if (!email || !password) {
-                showModal("Veuillez entrer l'email et le mot de passe de l'administrateur.");
-                return;
-            }
-
+        googleLoginButton.addEventListener('click', async () => {
             try {
-                await signInWithEmailAndPassword(auth, email, password);
-                showModal("Connexion réussie !");
+                const provider = new GoogleAuthProvider();
+                await signInWithPopup(auth, provider);
+                showModal("Connexion Google réussie !");
             } catch (error) {
-                console.error("Erreur de connexion administrateur:", error);
-                let errorMessage = "Échec de la connexion. Vérifiez vos identifiants (email/mot de passe).";
-                if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
-                    errorMessage = "Email ou mot de passe incorrect.";
-                } else if (error.code === 'auth/invalid-email') {
-                    errorMessage = "Format d'email invalide.";
+                console.error("Erreur de connexion Google:", error);
+                let errorMessage = "Échec de la connexion Google. Veuillez réessayer.";
+                if (error.code === 'auth/popup-closed-by-user') {
+                    errorMessage = "Connexion annulée par l'utilisateur.";
+                } else if (error.code === 'auth/cancelled-popup-request') {
+                    errorMessage = "Demande de pop-up annulée. Veuillez réessayer.";
                 }
                 showModal(errorMessage);
             }
@@ -454,8 +451,8 @@
         });
 
         addPhotoButton.addEventListener('click', async () => {
-            if (!isAdmin || (authProvider !== 'email' && authProvider !== 'github')) {
-                showModal("Vous n'êtes pas connecté en tant qu'administrateur autorisé pour ajouter des photos.");
+            if (!isAdmin) {
+                showModal("Vous n'êtes pas connecté en tant qu'administrateur autorisé pour ajouter des photos. Votre UID n'est pas dans la collection 'admins' de Firestore.");
                 return;
             }
 
