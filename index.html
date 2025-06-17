@@ -288,11 +288,49 @@
         .social-link.discord:hover { color: #7289DA; transform: translateY(-5px); }
         .social-link.tiktok:hover { color: #69C9D0; transform: translateY(-5px); }
 
-        .contact-section {
-            background-color: var(--dark-bg-secondary);
-            padding: 80px 20px;
-            border-top: 1px solid var(--border-color);
+        .contact-section-wrapper {
+            position: relative;
+            padding: 80px 20px; /* Same padding as .section */
+            background-color: var(--dark-bg-secondary); /* Same background as .section */
+            border-top: 1px solid var(--border-color); /* Same border as .section */
+        }
+
+        .contact-section-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10; /* Above the form */
+            border-radius: 10px; /* Match form radius */
+            flex-direction: column;
+            pointer-events: auto; /* Allow interaction with overlay content if needed, but block form below */
             text-align: center;
+        }
+
+        .contact-section-overlay h2 {
+            color: var(--accent-yellow); /* Yellow color for the message */
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+        .contact-section-overlay p {
+            color: var(--text-light);
+            font-size: 1.5em;
+        }
+
+        .contact-section {
+            /* This section is now inside .contact-section-wrapper and will be grayed out */
+            text-align: center;
+            filter: grayscale(80%) blur(3px); /* Gray out and blur the content */
+            pointer-events: none; /* Disable clicks on the form */
+            opacity: 0.5; /* Make it semi-transparent */
+            transition: filter 0.3s ease, opacity 0.3s ease;
         }
 
         .contact-form {
@@ -395,6 +433,12 @@
             .game-box {
                 max-width: 90%;
             }
+            .contact-section-overlay h2 {
+                font-size: 2.5em;
+            }
+            .contact-section-overlay p {
+                font-size: 1.2em;
+            }
         }
 
         @media (max-width: 768px) {
@@ -415,12 +459,6 @@
             }
             .header .nav-links.active {
                 display: flex;
-            }
-            .header .nav-links a {
-                margin: 0;
-                padding: 15px 20px;
-                border-bottom: 1px solid var(--border-color);
-                text-align: left;
             }
             .header .menu-icon {
                 display: block;
@@ -463,6 +501,12 @@
             .adsbygoogle-container {
                 min-height: 140px;
                 margin: 30px auto;
+            }
+            .contact-section-overlay h2 {
+                font-size: 2em;
+            }
+            .contact-section-overlay p {
+                font-size: 1em;
             }
         }
 
@@ -514,6 +558,12 @@
             .adsbygoogle-container {
                 min-height: 120px;
                 margin: 20px auto;
+            }
+            footer {
+                padding: 15px;
+            }
+            .social-links {
+                gap: 15px;
             }
         }
     </style>
@@ -578,23 +628,29 @@
         </div>
     </section>
 
-    <section class="section contact-section">
-        <h2 class="section-title">NOUS CONTACTER :</h2>
-        <form class="contact-form">
-            <div class="form-group full-width">
-                <label for="email">Saisir votre adresse mail :</label>
-                <input type="email" id="email" name="email" placeholder="Votre adresse email">
-            </div>
-            <div class="form-group">
-                <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom" placeholder="Votre nom">
-            </div>
-            <div class="form-group">
-                <label for="prenom">Prénom :</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom">
-            </div>
-        </form>
-    </section>
+    <div class="contact-section-wrapper">
+        <div class="contact-section-overlay">
+            <h2>Bientôt disponible !</h2>
+            <p>La section contact est en cours de construction.</p>
+        </div>
+        <section class="contact-section">
+            <h2 class="section-title">NOUS CONTACTER :</h2>
+            <form class="contact-form">
+                <div class="form-group full-width">
+                    <label for="email">Saisir votre adresse mail :</label>
+                    <input type="email" id="email" name="email" placeholder="Votre adresse email">
+                </div>
+                <div class="form-group">
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" name="nom" placeholder="Votre nom">
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Prénom :</label>
+                    <input type="text" id="prenom" name="prenom" placeholder="Votre prénom">
+                </div>
+            </form>
+        </section>
+    </div>
 
     <div class="adsbygoogle-container">
         <ins class="adsbygoogle"
